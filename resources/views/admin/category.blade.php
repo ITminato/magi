@@ -3,7 +3,7 @@
 <div class="col-lg-12">
     <div class="row">
         <div class="col-lg-3">
-@include('components.mypage.menu')
+            @include('components.mypage.menu')
         </div>
         <div class="col-lg-9">
             <div class="contanier">
@@ -13,13 +13,9 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <!-- <button type="button" class="mx-3 col-2 btn btn-outline-primary block float-start float-lg-end m-2" id="" data-bs-toggle="modal" data-bs-target="#backdrop_2"><i class="bi bi-plus-circle"></i> カテゴリを追加</button> -->
                             <button type="button" class="mx-3 col-4 btn btn-outline-primary block float-start float-lg-end m-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                             カテゴリを追加
                             </button>
-                            <!-- <button class="col-1 btn btn-danger btn-icon float-lg-end m-2" type="button" onclick="allCategoryRemove()"><i class="bi bi-trash"></i></button> -->
-
-                            <!-- <button class="mx-3 col-2 btn btn btn-outline-primary block float-start float-lg-end m-2" id="add_category">カテゴリを追加</button> -->
                         </div>
                         <div class="card-content">
                             <div class="table-responsive">
@@ -75,7 +71,6 @@
             <div class="row">
                 <div class="col-6">
                     <label class="input-group-text" style="height: 18em;cursor:pointer;text-align:center" for="inputGroupFile01">
-                        <!-- <i class="bi bi-images" style="font-size:2em;"></i> -->
                         画像のアップロード
                         <span style="color:#838383" class="mx-4"></span>
                         <div class="spinner-border" role="status" style="font-size: 3px;display:none">
@@ -87,9 +82,6 @@
                 <div class="col-6" id="image_previews" style="border-style: 1px solid #ddd;">
                     <i class="bi bi-images" style="font-size:11em;" id="example_img"></i>
                 </div>
-                <!-- <label for="file" class="col-5" style="cursor:pointer"><i class="bi bi-images" style="font-size:1.5em;"></i></label>
-                <img src="" class="col-5" alt="" />
-                <input type="file" name="" onchange="uploadImage(event)"  style="display: none;" id="file"> -->
             </div>
         </div>
         <div class="modal-footer">
@@ -119,10 +111,13 @@
             }
         } else {
             $('#category_name').val('');
-
         }
     }).on('hidden.bs.modal', function(e) {
         $('#category_name').val('');
+        $('#product_img_1').remove();
+        $('#example_img').css('display','block');
+        $('#_product_img_1').remove();
+        
     });
 
     $('#category_save').on('click', function() {

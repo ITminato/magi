@@ -7,7 +7,7 @@ $users = App\Models\User::all();
 <div class="col-lg-12">
     <div class="row">
         <div class="col-lg-3">
-@include('components.mypage.menu')
+        @include('components.mypage.menu')
         </div>
         <div class="col-lg-9">
             <div class="contanier">

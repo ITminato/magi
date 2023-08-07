@@ -3,7 +3,8 @@
 <div class="col-lg-12">
     <div class="row">
         <div class="col-lg-3">
-@include('components.mypage.menu')
+            <x-Mypage.menu>
+            </x-Mypage.menu>
         </div>
         <div class="col-lg-9">
             <div class="contanier">
@@ -13,7 +14,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <button type="button" class="mx-3 col-4 btn btn-outline-primary block float-start float-lg-end m-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <button type="button" id="category_new" class="mx-3 col-4 btn btn-outline-primary block float-start float-lg-end m-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                             シリーズを追加
                             </button>
                         </div>
@@ -67,23 +68,20 @@
   <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header bg-info">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">カテゴリ</h1>
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">ブランド</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <div class="row">
                 <div class="col-12">
-                    <select name="" id="category_select" class="form-select my-2">
-                        <option value="">カテゴリを選択してください。</option>
+                    <select name="" id="category_select" class="form-select my-2" onchange="getBrand(this.value,'brand','category_id')">
+                        <option value="0">---</option>
                         @foreach(App\Models\Category::get() as $category)
                             <option value="{{ $category['id'] }}">{{ $category->category }}</option>
                         @endforeach
                     </select>
                     <select name="" id="brand_select" class="form-select my-2">
-                        <option value="">ブランドを選択してください。</option>
-                        @foreach(App\Models\Brand::get() as $brand)
-                            <option value="{{ $brand['id'] }}">{{ $brand->brand }}</option>
-                        @endforeach
+                        <option value="">カテゴリを選択してください。</option>
                     </select>
                     <input type="text" class="form-control my-2" id="serie_name" name="serie" placeholder="シリーズ" />
                 </div>
@@ -118,8 +116,10 @@
     $('.edit').on('click', function() {
         id = $(this).attr('id');
     });
+    $('#category_new').on('click',function(){
+        id = 0;
+    });
     $('#staticBackdrop').on('shown.bs.modal', function(e) {
-        console.log('as');
         if (e.relatedTarget.dataset.serie !== undefined) {
             let serieData = JSON.parse(e.relatedTarget.dataset.serie);
             $('#serie_name').val(serieData.series);
@@ -135,13 +135,18 @@
         }
     }).on('hidden.bs.modal', function(e) {
         $('#serie_name').val('');
+        $('#product_img_1').remove();
+        $('#example_img').css('display','block');
+        $('#_product_img_1').remove();
     });
 
     $('#serie_save').on('click', function() {
-        if($('#category_select').val() == 0) {
-            alert('カテゴリを選択する必要があります。')
+        if($('#brand_select').val() == 0) {
+            alert('ブランドを選択する必要があります。');
+            return;
         }else {
             if (id > 0) {
+                console.log($('#category_select').val(),id);
                 $.ajax({
                     url: "{{ url('/admin/serie/update') }}",
                     type: 'post',
@@ -150,8 +155,8 @@
                     },
                     data: {
                         id: id,
-                        brand_id:$('#brand_select').val(),
                         category_id:$('#category_select').val(),
+                        brand_id:$('#brand_select').val(),
                         serie:$('#serie_name').val(),
                         serie_img:($('#product_img_1').val() == undefined) ? '' : $('#product_img_1').val()
                     },
@@ -244,5 +249,44 @@
         }
         $('.spinner-border').css('display','none');
     };
+    function getBrand(getData,name,third) {
+        $.ajax({
+            url: "{{ url('/mypage/item/getBrand') }}",
+            type: 'post',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                getData: Number(getData),
+                name:name,
+                condition:third,
+            },
+            beforeSend: function() {
+            },
+            success: function(res) {
+                if(name == 'brand') {
+                    let option = '';
+                    if(res.length > 0 ) {
+                        for (const item of res) {
+                            option += `<option value='`+item.id+`' >`+item.brand+`</option>`;
+                        }
+                    }else {
+                        option = `<option value='0' >該当するブランドはありません。</option>`;
+                    }
+                    $('#brand_select').html(option);
+                    option = '';
+                }else{
+                    let option = `<option value='0' >シリーズを選択してください。</option>`;
+                    for (const item of res) {
+                        console.log(item);
+                        option += `<option value='`+item.id+`' >`+item.series+`</option>`;
+                    }
+                    $('#series_select').html(option);
+                    option='';
+                }
+
+            }
+        });
+    }
 </script>
 @endsection

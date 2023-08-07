@@ -137,6 +137,7 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
-
+        Admin_new::find($id)->delete();
+        return 'success';
     }
 }

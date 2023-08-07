@@ -79,7 +79,6 @@ class MypageController extends Controller
                 'product_name' => ['required','string','max:120'],
                 'category' => ['required'],
                 'product_status' => ['required'],
-                'size' => ['required'],
                 'prices' => ['required'],
                 'shipping_fees' => ['required'],
                 'delivery_method' => ['required'],
@@ -91,7 +90,6 @@ class MypageController extends Controller
                 'product_name.max' => '商品名は最大120文字でなければなりません。',
                 'category.required' => 'カテゴリは必須です。',
                 'product_status.required' => '状態を入力してください。',
-                'size.required' => 'サイズを入力してください。',
                 'prices.required' => '価格を入力してください。',
                 'shipping_fees.required' => '発送日目安を入力してください。',
                 'delivery_method.required' => '出品者からの配送方法を入力してください。',
@@ -106,7 +104,6 @@ class MypageController extends Controller
         $product->brand = $request->brand;
         $product->series = $request->series;
         $product->product_status = $request->product_status;
-        $product->size = $request->size;
         $product->description = $request->description ?? '';
         $product->prices = $request->prices;
         $product->shipping_fees = $request->shipping_fees;
@@ -141,7 +138,6 @@ class MypageController extends Controller
         $product->brand = $request->brand;
         $product->series = $request->series;
         $product->product_status = $request->product_status;
-        $product->size = $request->size;
         $product->description = $request->description ?? '';
         $product->prices = $request->prices;
         $product->type = $request->type;
@@ -181,9 +177,9 @@ class MypageController extends Controller
     }
     public function presenteds()
     {
-        $exhibits = Product::where('user_id',Auth::id())->where('type',2)->get();
-        $transactions = Product::where('user_id',Auth::id())->where('type',3)->get();
-        $completes = Product::where('user_id',Auth::id())->where('type',4)->get();
+        $exhibits = Product::where('user_id',Auth::id())->where('type',2)->orderBy('id', 'desc')->paginate(10);
+        $transactions = Product::where('user_id',Auth::id())->where('type',3)->orderBy('id', 'desc')->paginate(10);
+        $completes = Product::where('user_id',Auth::id())->where('type',4)->orderBy('id', 'desc')->paginate(10);
         return view('mypage.presenteds',[
             'exhibits'=> $exhibits,
             'transactions'=> $transactions,
@@ -205,8 +201,8 @@ class MypageController extends Controller
     public function tradings()
     {
 
-        $trands = Product::where('type',3)->where('transaction_user_id',Auth::id())->get();
-        $buy_completes = Product::where('type',4)->where('transaction_user_id',Auth::id())->get();
+        $trands = Product::where('type',3)->where('transaction_user_id',Auth::id())->orderBy('id', 'desc')->paginate(10);
+        $buy_completes = Product::where('type',4)->where('transaction_user_id',Auth::id())->orderBy('id', 'desc')->paginate(10);
         return view('mypage.tradings',[
             'trands' => $trands,
             'buy_completes' => $buy_completes

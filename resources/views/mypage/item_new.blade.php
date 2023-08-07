@@ -3,7 +3,7 @@
 @section('container')
 <div class="col-lg-12">
     <div class="row d-flex justify-content-center">
-       
+
         <div class="col-lg-9">
             <div class="contanier">
                 <div class="border rounded-3 p-2 bg-light mb-4">
@@ -33,7 +33,7 @@
                                     <input type="file" accept="image/*" class="form-control" style="visibility: hidden;" id="inputGroupFile01" onchange="uploadImage(event)">
                                 </div>
                                 <div class="row d-flex flex-row flex-wrap mb-4 p-2" id="image_previews"></div>
-                                
+
                                 <div class="row mb-3">
                                     <div class="col-4">
                                         <span class="m-0 p-0">商品名</span>
@@ -108,66 +108,6 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-4">
-                                        <span class="m-0 p-0">サイズ </span>
-                                        <span style="color:red;font-size:12px">■必須</span>
-                                    </div>
-                                    <div class="col-8">
-                                        <select class="form-select" name="size" id="size" >
-                                            <option value="">---</option> <option value="23cm">
-                                                23cm
-                                            </option><option value="23.5cm">
-                                                23.5cm
-                                            </option><option value="24cm">
-                                                24cm
-                                            </option><option value="24.5cm">
-                                                24.5cm
-                                            </option><option value="25cm">
-                                                25cm
-                                                </option><option value="25.5cm">
-                                                25.5cm
-                                            </option><option value="26cm">
-                                                26cm
-                                                </option><option value="26.5cm">
-                                                26.5cm
-                                                </option><option value="27cm">
-                                                27cm
-                                                </option><option value="27.5cm">
-                                                27.5cm
-                                                </option><option value="28cm">
-                                                28cm
-                                                </option><option value="28.5cm">
-                                                    28.5cm
-                                                </option><option value="29cm">
-                                                    29cm
-                                                </option><option value="29.5cm">
-                                                    29.5cm
-                                                </option><option value="30cm">
-                                                    30cm
-                                                </option><option value="30.5cm">
-                                                    30.5cm
-                                                </option><option value="31cm">
-                                                    31cm
-                                                </option><option value="31.5cm">
-                                                    31.5cm
-                                                </option><option value="32cm">
-                                                    32cm
-                                                </option>
-                                            </select>
-                                        </div>
-                                        @error('size')
-                                            <div class="alert alert-danger m-1">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="row mb-3">
-                                    <div class="col-4">
-                                        <span class="m-0 p-0">商品説明</span>
-                                    </div>
-                                    <div class="col-8">
-                                        <textarea class="form-control" name="description" placeholder="最大30000文字" rows="5" id="description"></textarea>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-4">
                                         <span class="m-0 p-0">価格</span>
                                         <span style="color:red;font-size:12px">■必須</span>
                                         <p style="color:#838383">100円～95,000,000円</p>
@@ -187,7 +127,7 @@
                                     </div>
                                     <div class="col-8">
                                         <select class="form-select" name="shipping_fees" id="shipping_fees" >
-                                            <option value="">---</option> 
+                                            <option value="">---</option>
                                             <option value="included">送料込み</option>
                                             <option value="excluded">着払い</option>
                                             <option value="free">なし</option>
@@ -204,7 +144,7 @@
                                     </div>
                                     <div class="col-8">
                                         <select class="form-select" name="delivery_method" id="delivery_method" >
-                                            <option value="">---</option> 
+                                            <option value="">---</option>
                                             <option value="included">送料込み</option>
                                             <option value="excluded">着払い</option>
                                             <option value="free">なし</option>
@@ -221,7 +161,7 @@
                                     </div>
                                     <div class="col-8">
                                         <select class="form-select" name="shipping_days" id="shipping_days" >
-                                            <option value="">---</option> 
+                                            <option value="">---</option>
                                             <option value="one_or_two">１〜２日</option>
                                             <option value="three_or_four">３〜４日</option>
                                             <option value="five_to_seven">５〜７日</option>
@@ -315,7 +255,7 @@
                     let option = `<option value='0' >ブランドを選択してください。</option>`;
                     for (const item of res) {
                         console.log(item);
-                        option += `<option value='`+item.id+`' >`+item.brand+`</option>`; 
+                        option += `<option value='`+item.id+`' >`+item.brand+`</option>`;
                     }
                     $('#brand_select').html(option);
                     option = '';
@@ -323,12 +263,12 @@
                     let option = `<option value='0' >シリーズを選択してください。</option>`;
                     for (const item of res) {
                         console.log(item);
-                        option += `<option value='`+item.id+`' >`+item.series+`</option>`; 
+                        option += `<option value='`+item.id+`' >`+item.series+`</option>`;
                     }
                     $('#series_select').html(option);
                     option='';
                 }
-                
+
             }
         });
     }

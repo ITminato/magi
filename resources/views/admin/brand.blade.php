@@ -3,7 +3,7 @@
 <div class="col-lg-12">
     <div class="row">
         <div class="col-lg-3">
-@include('components.mypage.menu')
+        @include('components.mypage.menu')
         </div>
         <div class="col-lg-9">
             <div class="contanier">
@@ -14,7 +14,7 @@
                     <div class="card-body">
                         <div class="row">
                             <button type="button" class="mx-3 col-4 btn btn-outline-primary block float-start float-lg-end m-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                            ブランドを追加
+                            ブランドを追加    
                             </button>
                         </div>
                         <div class="card-content">
@@ -63,14 +63,13 @@
   <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header  bg-info">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">カテゴリ</h1>
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">ブランド</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <div class="row">
                 <div class="col-12">
                     <select name="" id="category_select" class="form-select my-2">
-                        <option value="">カテゴリを選択してください。</option>
                         @foreach(App\Models\Category::get() as $category)
                             <option value="{{ $category['id'] }}">{{ $category->category }}</option>
                         @endforeach
@@ -113,6 +112,7 @@
         if (e.relatedTarget.dataset.brand !== undefined) {
             let brandData = JSON.parse(e.relatedTarget.dataset.brand);
             $('#brand_name').val(brandData.brand);
+            $('#category_select').val(brandData.category_id);
             if(brandData.brand_img != '' && brandData.brand_img != null && $('textarea[name="product_img_1"]').val() == undefined) {
                 let image = `<div id="_product_img_1" class="" style="width:90%;max-height:18em;padding:50px auto" ><img src="`+brandData.brand_img+`" style="width:100%;height:80%" name="img_url" class="img-fluid" /><button type="button" style="width:100%;border-radius:0" onclick="$('#product_img_1').remove();$('#example_img').css('display','block');$('#_product_img_1').remove();" class="btn btn-secondary">削除</button></div>`;
                 image += `<textarea style="display: none;" id="product_img_1" class="form-control" name="product_img_1" >`+brandData.brand_img+`</textarea>`;
@@ -121,15 +121,18 @@
             }
         } else {
             $('#brand_name').val('');
-
+            
         }
     }).on('hidden.bs.modal', function(e) {
         $('#brand_name').val('');
+        $('#product_img_1').remove();
+        $('#example_img').css('display','block');
+        $('#_product_img_1').remove();
     });
 
     $('#brand_save').on('click', function() {
-        if($('#category_select').val() == 0) {
-            alert('カテゴリを選択する必要があります。')
+        if($('#brand_name').val() == '') {
+            alert('正しい資料を入力してください。')
         }else {
             if (id > 0) {
                 $.ajax({
@@ -193,7 +196,7 @@
                 }, 10);
             }
         });
-
+    
     });
 
     const convertBase64 = (file) => {

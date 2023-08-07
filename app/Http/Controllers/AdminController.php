@@ -82,7 +82,7 @@ class AdminController extends Controller
     }
     public function serie_update(Request $request)
 	{
-        $serie = Brand::find($request->id);
+        $serie = Serie::find($request->id);
         $serie->category_id = $request->category_id;
 		$serie->brand_id = $request->brand_id;
 		$serie->series = $request->serie;

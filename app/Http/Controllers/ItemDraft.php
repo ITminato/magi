@@ -35,7 +35,7 @@ class ItemDraft extends Controller
      */
     public function create()
     {
-       
+
     }
 
     /**
@@ -86,7 +86,6 @@ class ItemDraft extends Controller
                 'product_name' => ['required','string','max:120'],
                 'category' => ['required'],
                 'product_status' => ['required'],
-                'size' => ['required'],
                 'prices' => ['required'],
                 'shipping_fees' => ['required'],
                 'delivery_method' => ['required'],
@@ -98,7 +97,6 @@ class ItemDraft extends Controller
                 'product_name.max' => '商品名は最大120文字でなければなりません。',
                 'category.required' => 'カテゴリは必須です。',
                 'product_status.required' => '状態を入力してください。',
-                'size.required' => 'サイズを入力してください。',
                 'prices.required' => '価格を入力してください。',
                 'shipping_fees.required' => '発送日目安を入力してください。',
                 'delivery_method.required' => '出品者からの配送方法を入力してください。',
@@ -113,7 +111,6 @@ class ItemDraft extends Controller
         $product->brand = $request->brand;
         $product->series = $request->series;
         $product->product_status = $request->product_status;
-        $product->size = $request->size;
         $product->description = $request->description ?? '';
         $product->prices = $request->prices;
         $product->shipping_fees = $request->shipping_fees;

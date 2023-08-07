@@ -4,7 +4,7 @@
 <div class="col-lg-12">
     <div class="row d-flex justify-content-center">
         <div class="col-lg-3">
-@include('components.mypage.menu')
+            @include('components.mypage.menu')
         </div>
         <div class="col-lg-9">
             <div class="contanier">
@@ -47,11 +47,11 @@
                                     <input type="file" accept="image/*" class="form-control" style="visibility: hidden;" id="inputGroupFile01" onchange="uploadImage(event)">
                                 </div>
                                 <div class="row d-flex flex-row flex-wrap mb-4 p-2" id="image_previews"></div>
-
+                                
                                 <div class="row mb-3">
                                     <div class="row d-flex flex-row">
                                         <span class=""><strong>商品説明</strong><span style="color:red;font-size:12px">■必須</span> </span>
-
+                                        
                                     </div>
                                     <div class="col-12">
                                         <textarea class="form-control" name="content" placeholder="最大30000文字" rows="5" id="description"></textarea>
@@ -128,7 +128,7 @@
                     let option = `<option value='0' >ブランドを選択してください。</option>`;
                     for (const item of res) {
                         console.log(item);
-                        option += `<option value='`+item.id+`' >`+item.brand+`</option>`;
+                        option += `<option value='`+item.id+`' >`+item.brand+`</option>`; 
                     }
                     $('#brand_select').html(option);
                     option = '';
@@ -136,12 +136,12 @@
                     let option = `<option value='0' >シリーズを選択してください。</option>`;
                     for (const item of res) {
                         console.log(item);
-                        option += `<option value='`+item.id+`' >`+item.series+`</option>`;
+                        option += `<option value='`+item.id+`' >`+item.series+`</option>`; 
                     }
                     $('#series_select').html(option);
                     option='';
                 }
-
+                
             }
         });
     }

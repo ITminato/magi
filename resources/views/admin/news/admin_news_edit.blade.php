@@ -4,7 +4,7 @@
 <div class="col-lg-12">
     <div class="row d-flex justify-content-center">
         <div class="col-lg-3">
-@include('components.mypage.menu')
+        @include('components.mypage.menu')
         </div>
         <div class="col-lg-9">
             <div class="contanier">
@@ -62,11 +62,11 @@
                                     @endif
 
                                 </div>
-
+                                
                                 <div class="row mb-3">
                                     <div class="row d-flex flex-row">
                                         <span class=""><strong>商品説明</strong><span style="color:red;font-size:12px">■必須</span> </span>
-
+                                        
                                     </div>
                                     <div class="col-12">
                                         <textarea class="form-control" name="content" placeholder="最大30000文字" rows="5" id="description">{{$notice->content}}</textarea>
@@ -76,8 +76,11 @@
                                     @enderror
                                 </div>
                                 <div class="row my-3">
-                                    <div class="col-12 text-align-center">
+                                    <div class="col-6 text-align-center">
                                         <button type="submit" style="width: 100%;" id="" class="btn btn-warning">確認画面へ進む</button>
+                                    </div>
+                                    <div class="col-6 text-align-center">
+                                        <button type="button" style="width: 100%;" onclick="adminNewsDelete({{ $notice->id }})" class="btn btn-danger">確認画面へ進む</button>
                                     </div>
                                 </div>
                             </form>
@@ -90,6 +93,26 @@
 </div>
 @section('add_js')
 <script>
+    const adminNewsDelete = (id) => {
+        if(confirm('本当に削除しますか?')) {
+            $.ajax({
+                url: "{{ url('/admin/news/').'/'.$notice->id }}",
+                type: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(res) {
+                    if(res == 'success') {
+                        location.href = '{{url("admin/news")}}';
+                    }
+                }
+            })
+            // return;
+        }else {
+            console.log('{{ url('/admin/news/').'/'.$notice->id }}');
+
+        }
+    }
     const convertBase64 = (file) => {
         return new Promise((resolve, reject) => {
             const fileReader = new FileReader();
@@ -146,7 +169,7 @@
                     let option = `<option value='0' >ブランドを選択してください。</option>`;
                     for (const item of res) {
                         console.log(item);
-                        option += `<option value='`+item.id+`' >`+item.brand+`</option>`;
+                        option += `<option value='`+item.id+`' >`+item.brand+`</option>`; 
                     }
                     $('#brand_select').html(option);
                     option = '';
@@ -154,12 +177,12 @@
                     let option = `<option value='0' >シリーズを選択してください。</option>`;
                     for (const item of res) {
                         console.log(item);
-                        option += `<option value='`+item.id+`' >`+item.series+`</option>`;
+                        option += `<option value='`+item.id+`' >`+item.series+`</option>`; 
                     }
                     $('#series_select').html(option);
                     option='';
                 }
-
+                
             }
         });
     }

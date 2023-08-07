@@ -18,7 +18,7 @@
                             <p class="card-text">メールはありません</p>
                             @else
                                 @if(Auth::user()->role == 'admin')
-                                <a href="{{url('/admin/news/create')}}" type="button" class="btn btn-outline-danger btn-lg px-4 me-sm-3 fw-bold">追加する</a>
+                                <a href="{{url('/admin/news/create')}}" type="button" class="btn btn-outline-warning mb-3 btn-lg px-4 me-sm-3 fw-bold">追加する</a>
                                 @endif
                                 <div class="list-group">
                                     @foreach($notices as $notice)
