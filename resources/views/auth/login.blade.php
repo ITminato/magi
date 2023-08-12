@@ -8,7 +8,7 @@
                 <span><h4 class=text-center>メールアドレスでログイン</h4></span>
                 @if ($errors->any())
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        メールアドレスまたはパスワードが正しくありません。
+                        メールアドレスを入力してください, パスワードを入力してください
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif

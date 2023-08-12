@@ -13,10 +13,6 @@ use App\Models\Serie;
 
 class ItemDraft extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -86,7 +82,7 @@ class ItemDraft extends Controller
                 'product_name' => ['required','string','max:120'],
                 'category' => ['required'],
                 'product_status' => ['required'],
-                'prices' => ['required'],
+                'prices' => ['required', 'integer', 'min:100','max:95000000'],
                 'shipping_fees' => ['required'],
                 'delivery_method' => ['required'],
                 'shipping_days' => ['required'],
@@ -98,6 +94,8 @@ class ItemDraft extends Controller
                 'category.required' => 'カテゴリは必須です。',
                 'product_status.required' => '状態を入力してください。',
                 'prices.required' => '価格を入力してください。',
+                'prices.min'=>'金額は100円より大きくなければなりません。',
+                'prices.max'=> '金額は95,000,000円より小さくなければなりません。',
                 'shipping_fees.required' => '発送日目安を入力してください。',
                 'delivery_method.required' => '出品者からの配送方法を入力してください。',
                 'shipping_days.required' => '発送日目安を入力してください。',

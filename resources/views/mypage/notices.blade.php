@@ -7,7 +7,11 @@
 <div class="col-lg-12">
     <div class="row">
         <div class="col-lg-3">
+        @if(Auth::user()->role == 'admin')
+        @include('components.admin-menu')
+        @else
         @include('components.mypage.menu')
+        @endif
         </div>
         <div class="col-lg-9">
             <div class="contanier">
@@ -23,11 +27,11 @@
                                 <div class="list-group">
                                     @foreach($notices as $notice)
                                         @if(strpos(url()->current(), "/mypage/notices"))
-                                            <a href="{{ url('/admin/news/').'/'.$notice->id }}" class="list-group-item list-group-item-action d-flex flex-column">
+                                            <a href="{{ url('/admin/news').'/'.$notice->id }}" class="list-group-item list-group-item-action d-flex flex-column">
                                         @elseif(Auth::user()->role == 'admin')
-                                            <a href="{{ url('/admin/news/').'/'.$notice->id.'/edit' }}" class="list-group-item list-group-item-action d-flex flex-column">
+                                            <a href="{{ url('/admin/news').'/'.$notice->id.'/edit' }}" class="list-group-item list-group-item-action d-flex flex-column">
                                         @else
-                                            <a href="{{ url('/admin/news/').'/'.$notice->id }}" class="list-group-item list-group-item-action d-flex flex-column">
+                                            <a href="{{ url('/admin/news').'/'.$notice->id }}" class="list-group-item list-group-item-action d-flex flex-column">
                                         @endif
                                             <!-- <img style="width:5em;height:5em" src="{{ asset('img/draft.jpg') }}" alt="" /> -->
                                             <span>{{ $notice->title ?? '名称未設定' }}</span>

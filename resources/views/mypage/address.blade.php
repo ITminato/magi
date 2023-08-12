@@ -11,16 +11,19 @@
                 <div class="border rounded-3 p-2 bg-light mb-4">
                     <div class="row">
                         <div class="col-lg-12">
-                            <h5 class="p-3">お客様情報</h5>
                             @if ($errors->any())
-                                <div class="alert alert-danger">
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                     <ul>
                                         @foreach ($errors->all() as $error)
                                             <li>{{ $error }}</li>
                                         @endforeach
                                     </ul>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
                             @endif
+                            <h5 class="p-3">お客様情報</h5>
                             <form action="/mypage/address/save" method="post" class="p-4">
                                 @csrf
                                 <div class="row" style="border-bottom:1px solid #ddd">

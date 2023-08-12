@@ -5,10 +5,10 @@
             <div class="col-lg-2"></div>
             <div class="col-lg-8">
                 <div class="border p-3">
-                    <h5>お問い合わせ（magiショップ出店専用）</h5>
+                    <h5>お問い合わせ（Swap-Tarouショップ出店専用）</h5>
                     <hr class="my-3">
                     <h6 class="mb-2">実店舗さまのみの対応とさせていただいております。</h6>
-                    <h6 class="mb-2">magiご利用中のお客さまからのお問い合わせにはご返答いたしかねます。</h6>
+                    <h6 class="mb-2">Swap-Tarouご利用中のお客さまからのお問い合わせにはご返答いたしかねます。</h6>
                     <h6 class="mb-5">お客さま専用のお問い合わせフォームからお願いします。</h6>
                     <div class="row">
                         <div class="col-lg-2"></div>

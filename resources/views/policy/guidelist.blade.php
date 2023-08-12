@@ -8,14 +8,14 @@
             <h5 class="text-center">Swap-Tarouガイド</h5>
             <div class="col-lg-6 p-2">
                 <div class="bd-example">
-                    <div class="accordion mb-3" id="magi_guide">
+                    <div class="accordion mb-3" id="Swap-Tarou_guide">
                         <div class="accordion-item">
-                            <h4 class="accordion-header" id="magi_guides">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#magi_guid" aria-expanded="false" aria-controls="magi_guid">
-                                    <i class="bi bi-question-octagon"></i>&nbsp;&nbsp;magiガイド
+                            <h4 class="accordion-header" id="Swap-Tarou_guides">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#Swap-Tarou_guid" aria-expanded="false" aria-controls="Swap-Tarou_guid">
+                                    <i class="bi bi-question-octagon"></i>&nbsp;&nbsp;Swap-Tarouガイド
                                 </button>
                             </h4>
-                            <div id="magi_guid" class="accordion-collapse collapse" aria-labelledby="magi_guides" data-bs-parent="#magi_guide" style="">
+                            <div id="Swap-Tarou_guid" class="accordion-collapse collapse" aria-labelledby="Swap-Tarou_guides" data-bs-parent="#Swap-Tarou_guide" style="">
                                 <div class="accordion-body">
                                     <a href="{{ route('magi_guide') }}" class="d-flex">
                                         <h6 class="float-start w-100">楽天ラクマとのサービス連携について</h6><i class="bi bi-chevron-right float-end"></i>
@@ -91,16 +91,16 @@
                         </div>
                     </div>
                     <div class="accordion mb-3">
-                        <div class="accordion-item" id="magi_simple_delivery">
+                        <div class="accordion-item" id="Swap-Tarou_simple_delivery">
                             <h4 class="accordion-header" id="simple">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#delivery" aria-expanded="false" aria-controls="delivery">
-                                    <i class="bi bi-question-octagon"></i>&nbsp;&nbsp;magiかんたん配送(匿名配送)
+                                    <i class="bi bi-question-octagon"></i>&nbsp;&nbsp;Swap-Tarouかんたん配送(匿名配送)
                                 </button>
                             </h4>
-                            <div id="delivery" class="accordion-collapse collapse" aria-labelledby="simple" data-bs-parent="#magi_simple_delivery" style="">
+                            <div id="delivery" class="accordion-collapse collapse" aria-labelledby="simple" data-bs-parent="#Swap-Tarou_simple_delivery" style="">
                                 <div class="accordion-body">
                                     <a href="" class="d-flex mb-2">
-                                        <h6 class="float-start w-100">magiかんたん配送(匿名配送)とは</h6><i class="bi bi-chevron-right float-end"></i>
+                                        <h6 class="float-start w-100">Swap-Tarouかんたん配送(匿名配送)とは</h6><i class="bi bi-chevron-right float-end"></i>
                                     </a>
                                     <a href="" class="d-flex mb-2">
                                         <h6 class="float-start w-100">対応しているサイズは？</h6><i class="bi bi-chevron-right float-end"></i>
@@ -121,7 +121,7 @@
                                         <h6 class="float-start w-100">他の配送方法に変更できますか？</h6><i class="bi bi-chevron-right float-end"></i>
                                     </a>
                                     <a href="" class="d-flex mb-2">
-                                        <h6 class="float-start w-100">他の配送方法からmagiかんたん配送に変更できますか？</h6><i class="bi bi-chevron-right float-end"></i>
+                                        <h6 class="float-start w-100">他の配送方法からSwap-Tarouかんたん配送に変更できますか？</h6><i class="bi bi-chevron-right float-end"></i>
                                     </a>
                                     <a href="" class="d-flex mb-2">
                                         <h6 class="float-start w-100">荷物が届かない場合</h6><i class="bi bi-chevron-right float-end"></i>
@@ -174,18 +174,18 @@
                     </div>
                     <div class="accordion mb-3">
                         <div class="accordion-item" id="grading">
-                            <h4 class="accordion-header" id="magi_grading">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#magi_grady" aria-expanded="false" aria-controls="magi_grady">
+                            <h4 class="accordion-header" id="Swap-Tarou_grading">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#Swap-Tarou_grady" aria-expanded="false" aria-controls="Swap-Tarou_grady">
                                     <i class="bi bi-question-octagon"></i>&nbsp;&nbsp;グレーディング
                                 </button>
                             </h4>
-                            <div id="magi_grady" class="accordion-collapse collapse" aria-labelledby="magi_grading" data-bs-parent="#grading" style="">
+                            <div id="Swap-Tarou_grady" class="accordion-collapse collapse" aria-labelledby="Swap-Tarou_grading" data-bs-parent="#grading" style="">
                                 <div class="accordion-body">
                                     <a href="" class="d-flex mb-2">
-                                        <h6 class="float-start w-100">magiグレードの評価基準</h6><i class="bi bi-chevron-right float-end"></i>
+                                        <h6 class="float-start w-100">Swap-Tarouグレードの評価基準</h6><i class="bi bi-chevron-right float-end"></i>
                                     </a>
                                     <a href="" class="d-flex">
-                                        <h6 class="float-start w-100">magiグレードの査定方法</h6><i class="bi bi-chevron-right float-end"></i>
+                                        <h6 class="float-start w-100">Swap-Tarouグレードの査定方法</h6><i class="bi bi-chevron-right float-end"></i>
                                     </a>
                                 </div>
                             </div>
@@ -383,29 +383,29 @@
                     <div class="accordion-item" id="For_those">
                         <h4 class="accordion-header" id="for">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#those" aria-expanded="false" aria-controls="those">
-                                <i class="bi bi-question-octagon"></i>&nbsp;&nbsp;For those accessing magi from abroad
+                                <i class="bi bi-question-octagon"></i>&nbsp;&nbsp;For those accessing Swap-Tarou from abroad
                             </button>
                         </h4>
                         <div id="those" class="accordion-collapse collapse" aria-labelledby="for" data-bs-parent="#For_those" style="">
                             <div class="accordion-body">
                                 <a href="" class="d-flex">
-                                    <h6 class="float-start w-100">How to buy on magi from abroad</h6><i class="bi bi-chevron-right float-end"></i>
+                                    <h6 class="float-start w-100">How to buy on Swap-Tarou from abroad</h6><i class="bi bi-chevron-right float-end"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="accordion mb-3">
-                    <div class="accordion-item" id="About_magi_Vault">
-                        <h4 class="accordion-header" id="magi_vault">
+                    <div class="accordion-item" id="About_Swap-Tarou_Vault">
+                        <h4 class="accordion-header" id="Swap-Tarou_vault">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#vault" aria-expanded="false" aria-controls="vault">
-                                <i class="bi bi-question-octagon"></i>&nbsp;&nbsp;magi VAULTについて
+                                <i class="bi bi-question-octagon"></i>&nbsp;&nbsp;Swap-Tarou VAULTについて
                             </button>
                         </h4>
-                        <div id="vault" class="accordion-collapse collapse" aria-labelledby="magi_vault" data-bs-parent="#About_magi_Vault" style="">
+                        <div id="vault" class="accordion-collapse collapse" aria-labelledby="Swap-Tarou_vault" data-bs-parent="#About_Swap-Tarou_Vault" style="">
                             <div class="accordion-body">
                                 <a href="" class="d-flex">
-                                    <h6 class="float-start w-100">magi VAULTについて</h6><i class="bi bi-chevron-right float-end"></i>
+                                    <h6 class="float-start w-100">Swap-Tarou VAULTについて</h6><i class="bi bi-chevron-right float-end"></i>
                                 </a>
                             </div>
                         </div>

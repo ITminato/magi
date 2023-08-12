@@ -52,15 +52,25 @@
         <div class="col-lg-2"></div>
         <div class="col-lg-8">
             <section class="content">
+                @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
                 <span><h4 class=text-center>会員情報入力</h4></span>
                 <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary mb-4" method="POST" action="{{ route('register') }}">
                     @csrf
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Akio" required autofocus>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Akio">
                         <label for="floatingInput">ニックネーム</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required autofocus>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
                         <label for="floatingInput">メールアドレス</label>
                     </div>
                     <div class="form-floating mb-3">

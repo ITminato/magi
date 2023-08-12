@@ -52,16 +52,20 @@
                                         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                                             @if(count($exhibits) == 0)
                                             <p>出品中の商品はありません</p>
+                                            @else
+                                                <div class="d-flex justify-content-end">
+                                                    <a href="{{ url('/mypage/price_cut') }}" class="btn btn-secondary m-2">一括値下げ</a>
+                                                </div>
+                                                <div class="list-group">
+                                                    @foreach($exhibits as $exhibit)
+                                                        <a href="{{url('/item').'/'.$exhibit->id}}" class="list-group-item list-group-item-action">
+                                                            <img style="width:5em;height:5em" src="{{ $exhibit->product_img_1 ?? $exhibit->product_img_2}}" alt="" />
+                                                            <span>{{ $exhibit->product_name ?? '名称未設定' }}</span>
+                                                        </a>
+                                                    @endforeach
+                                                    @if (count($exhibits)) {{ $exhibits->onEachSide(1)->links('mypage.pagination') }} @endif
+                                                </div>
                                             @endif
-                                            <div class="list-group">
-                                                @foreach($exhibits as $exhibit)
-                                                    <a href="{{url('/item').'/'.$exhibit->id}}" class="list-group-item list-group-item-action">
-                                                        <img style="width:5em;height:5em" src="{{ $exhibit->product_img_1 ?? $exhibit->product_img_2}}" alt="" />
-                                                        <span>{{ $exhibit->product_name ?? '名称未設定' }}</span>
-                                                    </a>
-                                                @endforeach
-                                                @if (count($exhibits)) {{ $exhibits->onEachSide(1)->links('mypage.pagination') }} @endif
-                                            </div>
                                         </div>
                                         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                             @if(count($transactions) == 0)
@@ -75,7 +79,8 @@
                                                         <th>名前</th>
                                                         <th>価格</th>
                                                         <th>トレーダー</th>
-                                                        <th>取引同意</th>
+                                                        <!-- <th>取引同意</th> -->
+                                                        <th>取引</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -86,8 +91,9 @@
                                                         <td>￥{{number_format($transaction->prices)}}</td>
                                                         <td>{{App\Models\User::find($transaction->transaction_user_id)->name   }}</td>
                                                         <td>
-                                                            <input class="" onchange="productComplete(event)" type="checkbox" value="" id="{{$transaction->id}}">
-                                                            <label class="" for="{{$transaction->id}}">取引同意</label>
+                                                            <!-- <input class="" onchange="productComplete(event)" type="checkbox" value="" id="{{$transaction->id}}">
+                                                            <label class="" for="{{$transaction->id}}">取引同意</label> -->
+                                                            <a href="{{url('mypage/product/transaction//').'/'.$transaction->id}}" class="btn btn-warning">取引</a>
                                                         </td>
                                                     </tr>
                                                     @endforeach
@@ -190,15 +196,15 @@
                                                 </thead>
                                                 <tbody>
                                                     @foreach($buy_completes as $buy_complete)
-                                                    <tr id="product_{{$buy_complete->id}}">
-                                                        <td style="width:5em;height:5em"><img style="width:100%;height:100%" src="{{$buy_complete->product_img_1}}" alt="" /></td>
-                                                        <td>{{$buy_complete->product_name}}</td>
-                                                        <td>￥{{number_format($buy_complete->prices)}}</td>
-                                                        <td>{{App\Models\User::find($buy_complete->user_id)->name }}</td>
-                                                        <td>
-                                                            {{$buy_complete->updated_at}}
-                                                        </td>
-                                                    </tr>
+                                                        <tr id="product_{{$buy_complete->id}}">
+                                                            <td style="width:5em;height:5em"><img style="width:100%;height:100%" src="{{$buy_complete->product_img_1}}" alt="" /></td>
+                                                            <a href="{{ url('mypage/review/').'/'.$buy_complete->id }}"><td>{{$buy_complete->product_name}}</td></a>
+                                                            <td>￥{{number_format($buy_complete->prices)}}</td>
+                                                            <td>{{App\Models\User::find($buy_complete->user_id)->name }}</td>
+                                                            <td>
+                                                                {{$buy_complete->updated_at}}
+                                                            </td>
+                                                        </tr>
                                                     @endforeach
                                                 </tbody>
                                             </table>

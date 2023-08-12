@@ -16,6 +16,7 @@ return [
     'defaults' => [
         'guard' => 'web',
         'passwords' => 'users',
+        'verify' => true,
     ],
 
     /*
@@ -39,6 +40,7 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+            'verify' => true,
         ],
     ],
 
@@ -63,6 +65,7 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+            'verify' => true,
         ],
 
         // 'users' => [

@@ -5,9 +5,9 @@
 $users = App\Models\User::all();
 @endphp
 <div class="col-lg-12">
-    <div class="row">
+    <div class="row m-4">
         <div class="col-lg-3">
-        @include('components.mypage.menu')
+            @include('components.admin-menu')
         </div>
         <div class="col-lg-9">
             <div class="contanier">

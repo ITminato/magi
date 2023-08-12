@@ -22,7 +22,7 @@
 </nav>
 <div class="col-lg-12">
     <div class="row">
-        <div class="col-lg-3">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
             <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary border rounded-3 mb-4">
                 <div class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
                   <span class="fs-5 fw-semibold">カテゴリ</span>
@@ -69,43 +69,29 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-9">
+        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
             <div class="contanier">
                 <div class="row">
                     <span class="my-3">
                         <h5>@php $name = App\Models\Category::find($id); echo $name['category']; @endphp 販売</h5>
                     </span>
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 mb-3">
                         <a href="#popular" class="btn btn-lg btn-dark w-100">人気・おすすめ出品一覧</a>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 mb-3">
                         <a href="#low" class="btn btn-lg btn-dark w-100">値下げされた商品一覧</a>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 mb-3">
                         <a href="#new" class="btn btn-lg btn-dark w-100">新着出品一覧</a>
                     </div>
                 </div>
-                {{-- <div class="row">
-                    <span class="my-3"><h5>Popular search word ranking</h5></span>
-                    <div class="row">
-                        <a href="javascript:void(0);" class="btn btn-light w-auto mb-2"><i class="bi bi-search"></i> monster</a>
-                        <a href="javascript:void(0);" class="btn btn-light w-auto mb-2"><i class="bi bi-search"></i> monster</a>
-                        <a href="javascript:void(0);" class="btn btn-light w-auto mb-2"><i class="bi bi-search"></i> monstermonstermonstermonster</a>
-                        <a href="javascript:void(0);" class="btn btn-light w-auto mb-2"><i class="bi bi-search"></i> monstermonstermonstermonster</a>
-                        <a href="javascript:void(0);" class="btn btn-light w-auto mb-2"><i class="bi bi-search"></i> monstermonstermonstermonster</a>
-                    </div>
-                    <div class="col-lg-10"></div>
-                    <div class="col-lg-2">
-                        <a href="" class="btn btn-outline-success w-100">もっと見る...</a>
-                    </div>
-                </div> --}}
                 <div class="row" id="popular">
                     <span class="my-3"><h5>人気・おすすめ出品一覧</h5></span>
                     @if ($popular_product->count() > 0)
                     @foreach($popular_product as $popular)
-                    <a href="{{ route('item', $popular->id) }}" class="col-lg-3 mb-3 no-underline">
+                    <a href="{{ route('item', $popular['id']) }}" class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-6 mb-3">
                         <div class="card bg-light">
-                            <div class="card-header product_item">
+                            <div class="product_item">
                                 @if ($popular->product_exhibit == 1)
                                     <span class="label onsale">SOLD</span>
                                 @endif
@@ -114,27 +100,27 @@
                                     echo '<img class="bd-placeholder-img card-img-top" width="100%" height="auto" role="img" aria-label="Placeholder: Thumbnail" src= "' . $img . '">'
                                 ?>
                             </div>
-                            <div class="product_details p-1" style=" overflow: hidden; height:155px;">
-                                <p class="card-text" style="max-height: 150px;">{{ $popular->description }}</p>
+                            <div class="body p-1 elp">
+                                <p class="card-text">{{ $popular->description }}</p>
                             </div>
-                            <div class="card-footer">
+                            <div class="card-footer" style=" -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 1; overflow: hidden; text-overflow: ellipsis; word-break: break-word; min-height: 40px;">
                                 @if (App\Models\Price_change::where('product_id', $popular->id)->count() > 0)
                                     @php
                                         $price = App\Models\Price_change::where('product_id', $popular->id)->orderBy('created_at', 'desc')->first();
-                                        echo '<small>¥ ';
+                                        echo '<div class="fontsize">¥ ';
                                         echo $price->price;
-                                        echo '</small>';
+                                        echo '</div>';
                                     @endphp
                                 @else
-                                <small>¥ {{ $popular->prices }}</small>
+                                <div class="fontsize">¥ {{ $popular->prices }}</div>
                                 @endif
-                                <div class="float-end">
-                                    @if ($popular->favorite)
-                                        <img src="{{ asset('star.png') }}" alt="star" width="23px">&nbsp;{{ $popular->favorite }}
-                                    @endif
-                                </div>
                             </div>
-                            <p style="font-size: 12px;">出品数:&nbsp;{{ $popular->inventory }}</p>
+                            <div class="d-flex">
+                                <p style="font-size: 12px; width: 65%;" class="pt-1 float-start">出品数:&nbsp;{{ $popular->inventory }}</p>
+                                @if ($popular->favorite)
+                                    <img src="{{ asset('star.png') }}" alt="star" width="25" height="25">&nbsp;{{ $popular->favorite }}
+                                @endif
+                            </div>
                         </div>
                     </a>
                     @endforeach
@@ -150,9 +136,9 @@
                     <span class="my-3"><h5>値下げされた商品一覧</h5></span>
                     @if ($low_price->count() > 0)
                     @foreach($low_price as $low)
-                    <a href="{{ route('item', $low->id) }}" class="col-lg-3 mb-3 no-underline">
+                    <a href="{{ route('item', $low['id']) }}" class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-6 mb-3">
                         <div class="card bg-light">
-                            <div class="card-header product_item">
+                            <div class="product_item">
                                 @if ($low->product_exhibit == 1)
                                     <span class="label onsale">SOLD</span>
                                 @endif
@@ -161,65 +147,27 @@
                                     echo '<img class="bd-placeholder-img card-img-top" width="100%" height="auto" role="img" aria-label="Placeholder: Thumbnail" src= "' . $img . '">'
                                 ?>
                             </div>
-                            <div class="product_details p-1" style=" overflow: hidden; height:155px;">
-                                <p class="card-text" style="max-height: 150px;">{{ $low->description }}</p>
+                            <div class="body p-1 elp">
+                                <p class="card-text">{{ $low->description }}</p>
                             </div>
-                            <div class="card-footer">
-                                <small>¥ {{ $low->price }}</small>
-                                <div class="float-end">
-                                    @if ($low->favorite)
-                                        <img src="{{ asset('star.png') }}" alt="star" width="23px">&nbsp;{{ $low->favorite }}
-                                    @endif
-                                </div>
-                            </div>
-                            <p style="font-size: 12px;">出品数:&nbsp;{{ $low->inventory }}</p>
-                        </div>
-                    </a>
-                    @endforeach
-                    <div class="row">
-                        <div class="col-lg-9"></div>
-                        <div class="col-lg-3"><a href="{{ route('see_more', $id) }}" class="btn btn-outline-success w-100">もっと見る...</a></div>
-                    </div>
-                    @else
-                    <h4 class="text-center">資料はありません。</h4>
-                    @endif
-                </div>
-                <div class="row" id="new">
-                    <span class="my-3"><h5>新着出品一覧</h5></span>
-                    @if ($new_price->count() > 0)
-                    @foreach($new_price as $new)
-                    <a href="{{ route('item', $new['id']) }}" class="col-lg-3 mb-3 no-underline">
-                        <div class="card bg-light">
-                            <div class="card-header product_item">
-                                @if ($new->product_exhibit == 1)
-                                    <span class="label onsale">SOLD</span>
-                                @endif
-                                <?php
-                                    $img = $new->product_img_1;
-                                    echo '<img class="bd-placeholder-img card-img-top" width="100%" height="auto" role="img" aria-label="Placeholder: Thumbnail" src= "' . $img . '">'
-                                ?>
-                            </div>
-                            <div class="product_details p-1" style=" overflow: hidden; height:155px;">
-                                <p class="card-text" style="max-height: 150px;">{{ $new->description }}</p>
-                            </div>
-                            <div class="card-footer">
-                                @if (App\Models\Price_change::where('product_id', $new->id)->count() > 0)
+                            <div class="card-footer" style=" -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 1; overflow: hidden; text-overflow: ellipsis; word-break: break-word; min-height: 40px;">
+                                @if (App\Models\Price_change::where('product_id', $low->id)->count() > 0)
                                     @php
-                                        $price = App\Models\Price_change::where('product_id', $new->id)->orderBy('created_at', 'desc')->first();
-                                        echo '<small>¥ ';
+                                        $price = App\Models\Price_change::where('product_id', $low->id)->orderBy('created_at', 'desc')->first();
+                                        echo '<div class="fontsize">¥ ';
                                         echo $price->price;
-                                        echo '</small>';
+                                        echo '</div>';
                                     @endphp
                                 @else
-                                <small>¥ {{ $new->prices }}</small>
+                                <div class="fontsize">¥ {{ $low->prices }}</div>
                                 @endif
-                                <div class="float-end">
-                                    @if ($new->favorite)
-                                        <img src="{{ asset('star.png') }}" alt="star" width="23px">&nbsp;{{ $new->favorite }}
-                                    @endif
-                                </div>
                             </div>
-                            <p style="font-size: 12px;">出品数:&nbsp;{{ $new->inventory }}</p>
+                            <div class="d-flex">
+                                <p style="font-size: 12px; width: 65%;" class="pt-1 float-start">出品数:&nbsp;{{ $low->inventory }}</p>
+                                @if ($low->favorite)
+                                    <img src="{{ asset('star.png') }}" alt="star" width="25" height="25">&nbsp;{{ $low->favorite }}
+                                @endif
+                            </div>
                         </div>
                     </a>
                     @endforeach
@@ -231,7 +179,57 @@
                     <h4 class="text-center">資料はありません。</h4>
                     @endif
                 </div>
-                <div class="row">
+                <div class="col-lg-12">
+                    <div class="row mb-4" id="new">
+                        <span class="my-3"><h5>新着出品一覧</h5></span>
+                        @if ($new_price->count() > 0)
+                        @foreach($new_price as $new)
+                        <a href="{{ route('item', $new['id']) }}" class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-6 mb-3">
+                            <div class="card bg-light">
+                                <div class="product_item">
+                                    @if ($new->product_exhibit == 1)
+                                        <span class="label onsale">SOLD</span>
+                                    @endif
+                                    <?php
+                                        $img = $new->product_img_1;
+                                        echo '<img class="bd-placeholder-img card-img-top" width="100%" height="auto" role="img" aria-label="Placeholder: Thumbnail" src= "' . $img . '">'
+                                    ?>
+                                </div>
+                                <div class="body p-1 elp">
+                                    <p class="card-text">{{ $new->description }}</p>
+                                </div>
+                                <div class="card-footer" style=" -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 1; overflow: hidden; text-overflow: ellipsis; word-break: break-word; min-height: 40px;">
+                                    @if (App\Models\Price_change::where('product_id', $new->id)->count() > 0)
+                                        @php
+                                            $price = App\Models\Price_change::where('product_id', $new->id)->orderBy('created_at', 'desc')->first();
+                                            echo '<div class="fontsize">¥ ';
+                                            echo $price->price;
+                                            echo '</div>';
+                                        @endphp
+                                    @else
+                                    <div class="fontsize">¥ {{ $new->prices }}</div>
+                                    @endif
+                                </div>
+                                <div class="d-flex">
+                                    <p style="font-size: 12px; width: 65%;" class="pt-1 float-start">出品数:&nbsp;{{ $new->inventory }}</p>
+                                    @if ($new->favorite)
+                                        <img src="{{ asset('star.png') }}" alt="star" width="25" height="25">&nbsp;{{ $new->favorite }}
+                                    @endif
+                                </div>
+                            </div>
+                        </a>
+                        @endforeach
+                        <div class="row">
+                            <div class="col-lg-9"></div>
+                            <div class="col-lg-3"><a href="{{ route('see_more', $id) }}" class="btn w-100 btn-outline-success btn-lg">もっと見る...</a></div>
+                        </div>
+                        @else
+                        <h4 class="text-center">資料はありません。</h4>
+                        @endif
+                    </div>
+                </div>
+
+                {{-- <div class="row">
                     <span class="my-3"><h5>List of popular card shop listings</h5></span>
                     <div class="col-lg-12 mb-3">
                         <div class="card mb-3" style="cursor: pointer;">
@@ -253,9 +251,9 @@
                                         </li>
                                     </ul>
                                 </div>
-                                {{-- <div class="col-lg-2 py-3">
+                                <div class="col-lg-2 py-3">
                                     <a href="" class="btn btn-sm btn-success">Identity verified</a>
-                                </div> --}}
+                                </div>
                             </a>
                         </div>
                         <div class="row">
@@ -323,11 +321,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
 </div>
-@endsection
-@section('add_js')
 @endsection

@@ -11,7 +11,7 @@ class AdvancedsearchController extends Controller
 {
     public function index()
     {
-        $datas = Product::orderBy('created_at', 'desc')->paginate(20);
+        $datas = Product::where('type', '>=', 2)->orderBy('created_at', 'desc')->paginate(20);
         // return view('advanced_search', ['datas' => $new_order]);
         return view('advanced_search', compact('datas'));
     }
@@ -21,13 +21,13 @@ class AdvancedsearchController extends Controller
     {
         $id = $request->input('selected_value');
         if($id == 0){
-            $datas = Product::orderBy('created_at', 'desc')->paginate(20);
+            $datas = Product::where('type', '>=', 2)->orderBy('created_at', 'desc')->paginate(20);
         }elseif($id == 1){
-            $datas = Product::orderBY('prices', 'asc')->paginate(20);
+            $datas = Product::where('type', '>=', 2)->orderBY('prices', 'asc')->paginate(20);
         }elseif($id == 2){
-            $datas = Product::orderBY('prices', 'desc')->paginate(20);
+            $datas = Product::where('type', '>=', 2)->orderBY('prices', 'desc')->paginate(20);
         }else{
-            $datas = Product::orderBY('favorite', 'desc')->paginate(20);
+            $datas = Product::where('type', '>=', 2)->orderBY('favorite', 'desc')->paginate(20);
         }
         return view('advanced_search', compact('datas'));
     }
@@ -56,81 +56,75 @@ class AdvancedsearchController extends Controller
         $query = Product::query();
 
         if ($keyword) {
-
-            $query->where('product_name', 'like', '%'.$keyword.'%');
-
+            if ($keyword !== null) {
+                $query->where('product_name', 'like', '%'.$keyword.'%')->where('type', '>=', 2);
+            }else{
+                return;
+            }
         }
 
         if ($category) {
-
-            $query->where('category', $category);
-
+            if($category !== 0){
+                $query->where('category', $category)->where('type', '>=', 2);
+            }else{
+                return;
+            }
         }
 
         if ($brand) {
-
-            $query->where('brand', $brand);
-
+            if($brand !== null) {
+                $query->where('brand', $brand)->where('type', '>=', 2);
+            }else{
+                return;
+            }
         }
 
         if ($series) {
-
-            $query->where('series', $series);
-
+            if($series !== null) {
+                $query->where('series', $series)->where('type', '>=', 2);
+            }else{
+                return;
+            }
         }
 
-        if ($size) {
-
-            $query->where('size', $size);
-
+        if ($max_price) {
+            if($max_price !== null) {
+                $query->where('prices', '<=', $max_price)->where('type', '>=', 2);
+            }else{
+                return;
+            }
         }
 
-        if ($max_price && $min_price) {
-
-            $query->where('prices', '>=', $min_price)
-                    ->where('prices', '<=', $max_price);
-
+        if ($min_price) {
+            if($min_price !== null) {
+                $query->where('prices', '>=', $min_price)->where('type', '>=', 2);
+            }else{
+                return;
+            }
         }
 
         if ($product_status) {
-
-            $query->where('product_status', $product_status);
-
+            if($product_status !== null) {
+                $query->where('product_status', $product_status)->where('type', '>=', 2);
+            }else{
+                return;
+            }
         }
 
         if ($exhibition_status) {
-
-            $query->where('product_exhibit', $exhibition_status);
-
+            if($exhibition_status !== null) {
+                $query->where('product_exhibit', $exhibition_status)->where('type', '>=', 2);
+            }else{
+                return;
+            }
         }
-
-        // if ($ipd == "on") {
-
-        //     $query->where('description', $ipd);
-
-        // }elseif($ipd = null){
-
-        //     return;
-
-        // }
-
-        // if ($ioalb == "on") {
-
-        //     $query->where('ioalb', $ioalb);
-
-        // }elseif($ioalb == null){
-
-        //     return;
-
-        // }
-
         $datas = $query->paginate(20);
 
         return view('advanced_search', compact('datas'));
     }
 
     public function see_more($id) {
-        $datas = Product::where('category', $id)->paginate(20);
+        $datas = Product::where('type', '>=', 2)->where('category', $id)->paginate(20);
         return view('advanced_search', compact('datas'));
     }
 
@@ -139,6 +133,7 @@ class AdvancedsearchController extends Controller
         $product_name = $item->product_name;
         $brand = $item->brand;
         $datas = Product::where('brand', '=', $brand)
+                                ->where('type', '>=', 2)
                                 ->where('product_status', "old")
                                 ->where('product_name', 'LIKE', substr($product_name, 0, 3) . '%')
                                 ->paginate(20);
@@ -150,6 +145,7 @@ class AdvancedsearchController extends Controller
         $product_name = $item->product_name;
         $brand = $item->brand;
         $datas = Product::where('brand', '=', $brand)
+                                ->where('type', '>=', 2)
                                 ->where('product_status', "brand_new")
                                 ->where('product_name', 'LIKE', substr($product_name, 0, 3) . '%')
                                 ->paginate(20);

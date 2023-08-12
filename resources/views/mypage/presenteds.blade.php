@@ -28,7 +28,7 @@
                                             @endif
                                             <div class="list-group">
                                                 @foreach($exhibits as $exhibit)
-                                                    <a href="" class="list-group-item list-group-item-action">
+                                                    <a href="{{url('/item').'/'.$exhibit->id}}" class="list-group-item list-group-item-action">
                                                         <img style="width:5em;height:5em" src="{{ $exhibit->product_img_1 ?? $exhibit->product_img_2 }}" alt="" />
                                                         <span>{{ $exhibit->product_name ?? '名称未設定' }}</span>
                                                     </a>

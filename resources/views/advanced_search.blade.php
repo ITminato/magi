@@ -1,11 +1,21 @@
 @extends('layouts.app')
-@section('add_css')
-    <link rel="stylesheet" href="{{ asset('css/style.min.css') }}">
-@endsection
 @section('container')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb p-3 bg-body-tertiary rounded-3">
+      <li class="breadcrumb-item">
+        <a class="link-body-emphasis" href="{{ route('home') }}">
+            <i class="bi bi-house-door-fill"></i>
+          <span class="visually-hidden">Home</span>
+        </a>
+      </li>
+      <li class="breadcrumb-item">
+        <a class="link-body-emphasis fw-semibold text-decoration-none" href="javascript:void(0);">詳細検索</a>
+      </li>
+    </ol>
+</nav>
 <div class="col-lg-12">
     <div class="row">
-        <div class="col-lg-3">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-3">
             <h5 class="py-1">詳細検索</h5>
             <form class="shadow-sm custom-form justify-content-center border rounded-3 bg-light p-2" method="get" action="{{ route('search') }}">
                 @csrf
@@ -30,52 +40,6 @@
                 <div class="mb-3">
                     <label for="" class="form-label">シリーズ</label>
                     <select class="form-select form-select-md" aria-label=".form-select-md example" name="series" id="series">
-                    </select>
-                </div>
-
-                <div class="mb-3">
-                    <label for="" class="form-label">サイズ</label>
-                    <select class="form-select form-select-md" aria-label=".form-select-md example" id="size" name="size">
-                        <option value=""></option>
-                        <option value="23cm">
-                        23cm
-                        </option><option value="23.5cm">
-                        23.5cm
-                        </option><option value="24cm">
-                        24cm
-                        </option><option value="24.5cm">
-                        24.5cm
-                        </option><option value="25cm">
-                        25cm
-                        </option><option value="25.5cm">
-                        25.5cm
-                        </option><option value="26cm">
-                        26cm
-                        </option><option value="26.5cm">
-                        26.5cm
-                        </option><option value="27cm">
-                        27cm
-                        </option><option value="27.5cm">
-                        27.5cm
-                        </option><option value="28cm">
-                        28cm
-                        </option><option value="28.5cm">
-                        28.5cm
-                        </option><option value="29cm">
-                        29cm
-                        </option><option value="29.5cm">
-                        29.5cm
-                        </option><option value="30cm">
-                        30cm
-                        </option><option value="30.5cm">
-                        30.5cm
-                        </option><option value="31cm">
-                        31cm
-                        </option><option value="31.5cm">
-                        31.5cm
-                        </option><option value="32cm">
-                        32cm
-                        </option>
                     </select>
                 </div>
 
@@ -118,7 +82,7 @@
                 </div>
             </form>
         </div>
-        <div class="col-lg-9">
+        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
             <div class="row mb-2">
                 <div class="col-lg-2">
                     <form method="POST" action="{{ route('order') }}" id="product">
@@ -133,55 +97,58 @@
                     </form>
                 </div>
             </div>
-            <div class="row" id="order">
-                @if ( $datas->count() > 0 )
-                    @foreach($datas as $data)
-                    <a href="{{ route('item',$data['id']) }}" class="col-lg-3 mb-3">
-                        <div class="card bg-light" style="cursor: pointer;">
-                            <div class="card-header product_item">
-                                @if ($data['product_exhibit'] == 1)
-                                    <span class="label onsale">SOLD</span>
-                                @endif
-                                <?php
-                                    $img = $data['product_img_1'];
-                                    echo '<img class="bd-placeholder-img card-img-top" width="100%" height="auto" role="img" aria-label="Placeholder: Thumbnail" src= "' . $img . '">'
-                                ?>
-                            </div>
-                            <div class="product_details" style="overflow: hidden; height:155px;">
-                                <p class="card-text" style="max-height: 150px;">{{ $data['description'] }}</p>
-                            </div>
-                            <div class="card-footer">
-                                @if (App\Models\Price_change::where('product_id', $data['id'])->count() > 0)
-                                    @php
-                                        $price = App\Models\Price_change::where('product_id', $data['id'])->orderBy('created_at', 'desc')->first();
-                                        echo '<small>¥ ';
-                                        echo $price->price;
-                                        echo '</small>';
-                                    @endphp
-                                @else
-                                <small>¥ {{ $data['prices'] }}</small>
-                                @endif
-                                <div class="float-end">
-                                    @if ($data['favorite'])
-                                    <img src="{{ asset('star.png') }}" alt="star" width="23px">&nbsp;{{ $data['favorite'] }}
+            <div class="contanier">
+                <div class="row" id="order">
+                    @if ( $datas->count() > 0 )
+                        @foreach($datas as $data)
+                        <a href="{{ route('item', $data['id']) }}" class="col-xl-3 col-lg-4 col-md-3 col-sm-6 col-6 mb-3">
+                            <div class="card bg-light">
+                                <div class="product_item">
+                                    @if ($data->product_exhibit == 1)
+                                        <span class="label onsale">SOLD</span>
+                                    @endif
+                                    <?php
+                                        $img = $data->product_img_1;
+                                        echo '<img class="bd-placeholder-img card-img-top" width="100%" height="auto" role="img" aria-label="Placeholder: Thumbnail" src= "' . $img . '">'
+                                    ?>
+                                </div>
+                                <div class="body p-1 elp">
+                                    <p class="card-text">{{ $data->description }}</p>
+                                </div>
+                                <div class="card-footer" style=" -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 1; overflow: hidden; text-overflow: ellipsis; word-break: break-word; min-height: 40px;">
+                                    @if (App\Models\Price_change::where('product_id', $data->id)->count() > 0)
+                                        @php
+                                            $price = App\Models\Price_change::where('product_id', $data->id)->orderBy('created_at', 'desc')->first();
+                                            echo '<div class="fontsize">¥ ';
+                                            echo $price->price;
+                                            echo '</div>';
+                                        @endphp
+                                    @else
+                                    <div class="fontsize">¥ {{ $data->prices }}</div>
+                                    @endif
+                                </div>
+                                <div class="d-flex">
+                                    <p style="font-size: 12px; width: 65%;" class="pt-1 float-start">出品数:&nbsp;{{ $data->inventory }}</p>
+                                    @if ($data->favorite)
+                                        <img src="{{ asset('star.png') }}" alt="star" width="25" height="25">&nbsp;{{ $data->favorite }}
                                     @endif
                                 </div>
                             </div>
-                        </div>
-                    </a>
-                    @endforeach
-                @else
-                    <h4 class="text-center">検索資料はありません。</h4>
-                @endif
-            </div>
-            <div class="row">
-                <div class="col-lg-4"></div>
-                <div class="col-lg-4">
-                    <nav aria-label="Standard pagination example">
-                        {!! $datas->withQueryString()->links('mypage.pagination') !!}
-                    </nav>
+                        </a>
+                        @endforeach
+                    @else
+                        <h4 class="text-center">検索資料はありません。</h4>
+                    @endif
                 </div>
-                <div class="col-lg-4"></div>
+                <div class="row">
+                    <div class="col-lg-4"></div>
+                    <div class="col-lg-4">
+                        <nav aria-label="Standard pagination example">
+                            {!! $datas->withQueryString()->links('mypage.pagination') !!}
+                        </nav>
+                    </div>
+                    <div class="col-lg-4"></div>
+                </div>
             </div>
         </div>
     </div>

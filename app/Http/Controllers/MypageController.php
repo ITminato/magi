@@ -19,12 +19,6 @@ use GuzzleHttp\Handler\Proxy;
 
 class MypageController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-        // $this->middleware('log')->only('index');
-        // $this->middleware('subscribed')->except('store');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -32,18 +26,24 @@ class MypageController extends Controller
      */
     public function index()
     {
-        $exhibits = Product::where('user_id',Auth::id())->where('type',2)->orderBy('id', 'desc')->paginate(10);
-        $transactions = Product::where('user_id',Auth::id())->where('type',3)->orderBy('id', 'desc')->paginate(10);
-        $completes = Product::where('user_id',Auth::id())->where('type',4)->orderBy('id', 'desc')->paginate(10);
-        $trands = Product::where('type',3)->where('transaction_user_id',Auth::id())->orderBy('id', 'desc')->paginate(10);
-        $buy_completes = Product::where('type',4)->where('transaction_user_id',Auth::id())->orderBy('id', 'desc')->paginate(10);
-        return view('mypage.index',[
-            'exhibits'=> $exhibits,
-            'transactions'=> $transactions,
-            'completes' => $completes,
-            'trands' => $trands,
-            'buy_completes' => $buy_completes
-        ]);
+
+        $address = User::find(Auth::user()->id);
+        if($address->address == null){
+            return redirect(url('mypage/address/edit'));
+        }else{
+            $exhibits = Product::where('user_id',Auth::id())->where('type',2)->orderBy('id', 'desc')->paginate(10);
+            $transactions = Product::where('user_id',Auth::id())->where('type',3)->orderBy('id', 'desc')->paginate(10);
+            $completes = Product::where('user_id',Auth::id())->where('type',4)->orderBy('id', 'desc')->paginate(10);
+            $trands = Product::where('type',3)->where('transaction_user_id',Auth::id())->orderBy('id', 'desc')->paginate(10);
+            $buy_completes = Product::where('type',4)->where('transaction_user_id',Auth::id())->orderBy('id', 'desc')->paginate(10);
+            return view('mypage.index',[
+                'exhibits'=> $exhibits,
+                'transactions'=> $transactions,
+                'completes' => $completes,
+                'trands' => $trands,
+                'buy_completes' => $buy_completes
+            ]);
+        }
     }
     /**
      * Display a listing of the resource.
@@ -79,7 +79,7 @@ class MypageController extends Controller
                 'product_name' => ['required','string','max:120'],
                 'category' => ['required'],
                 'product_status' => ['required'],
-                'prices' => ['required'],
+                'prices' => ['required', 'integer', 'min:100','max:95000000'],
                 'shipping_fees' => ['required'],
                 'delivery_method' => ['required'],
                 'shipping_days' => ['required'],
@@ -91,6 +91,8 @@ class MypageController extends Controller
                 'category.required' => 'カテゴリは必須です。',
                 'product_status.required' => '状態を入力してください。',
                 'prices.required' => '価格を入力してください。',
+                'prices.min'=>'金額は100円より大きくなければなりません。',
+                'prices.max'=> '金額は95,000,000円より小さくなければなりません。',
                 'shipping_fees.required' => '発送日目安を入力してください。',
                 'delivery_method.required' => '出品者からの配送方法を入力してください。',
                 'shipping_days.required' => '発送日目安を入力してください。',
@@ -255,6 +257,7 @@ class MypageController extends Controller
     public function profile_update(Request $request) {
         $user = User::find(Auth::id());
         $user->name = $request->name;
+        $user->user_img = $request->user_img;
         $user->description = $request->description;
         $user->save();
         return redirect(url('mypage/profile/edit'));
@@ -264,6 +267,17 @@ class MypageController extends Controller
     {
         return view('mypage.credit_card');
     }
+
+    public function credit_card_save(Request $request) {
+        $user = User::find(Auth::id());
+        $user->card_number = $request->card_number;
+        $user->card_expiration = $request->card_expiration;
+        $user->card_cvv = $request->card_cvv;
+        $user->card_holdername = $request->card_holdername;
+        $user->save();
+        return redirect()->route('mypage_index');
+    }
+
     public function authenticationEdit()
     {
         return view('mypage.authentication_edit');
@@ -327,10 +341,16 @@ class MypageController extends Controller
 
     public function transaction($product_id) {
         $product = Product::find($product_id);
-        $product->type = 3;//This product is transaction...
-        $product->transaction_user_id = Auth::id();
-        $product->save();
-        return redirect()->route('mypage_index');
+        $buyer_info = User::find($product->transaction_user_id);
+        return view('mypage.transaction',[
+            'product'=>$product,
+            'buyer_info'=>$buyer_info
+        ]);
+        // $product = Product::find($product_id);
+        // $product->type = 3;
+        // $product->transaction_user_id = Auth::id();
+        // $product->save();
+        // return redirect()->route('mypage_index');
     }
 
     public function completeAction(Request $request) {

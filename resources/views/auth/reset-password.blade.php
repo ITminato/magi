@@ -1,5 +1,6 @@
-<x-app-layout>
-    <form method="POST" action="{{ route('password.update') }}">
+@extends('layouts.app')
+@section('container')
+    {{-- <form method="POST" action="{{ route('password.update') }}">
         @csrf
 
         <svg class="mb-4" width="40" height="32" role="img" aria-label="Bootstrap">
@@ -36,5 +37,59 @@
         </div>
 
         <button class="w-100 btn btn-lg btn-primary" type="submit">{{ __('Reset Password') }}</button>
-    </form>
-</x-app-layout>
+    </form> --}}
+
+    <div class="col-lg-12 py-5">
+        <div class="row align-items-center">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <section class="content">
+                    <span><h4 class=text-center>メールアドレスでログイン</h4></span>
+                    @if ($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            メールアドレスを入力してください, パスワードを入力してください
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+                    <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary mb-4" method="POST" action="{{ route('password_update') }}">
+
+                        @csrf
+                        <div class="form-floating mb-3">
+                            <input type="email" name="email" class="form-control" id="email" value="" placeholder="name@example.com" required autofocus>
+                            <label for="floatingInput">メールアドレス</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="password" name="password" required autocomplete="current-password">
+                            <label for="floatingPassword">パスワード</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation"
+                                required>
+                            <label for="password_confirmation">パスワード(確認用)</label>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-8">
+                                <button class="w-100 btn btn-lg btn-warning" type="submit">パスワードの変更</button>
+                            </div>
+                            <div class="col-lg-2"></div>
+                        </div>
+                    </form>
+                    <span><h4 class=text-center>アカウントをお持ちでない方</h4></span>
+                    <div class="p-4 p-md-5 border rounded-3 bg-body-tertiary">
+                        <div class="row">
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-8">
+                                <a class="w-100 btn btn-lg btn-dark" type="button" href="{{ route('register_link') }}">会員登録はこちら</a>
+                            </div>
+                            <div class="col-lg-2"></div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+    </div>
+@endsection
+

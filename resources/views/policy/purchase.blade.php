@@ -5,8 +5,8 @@
             <div class="col-lg-2"></div>
             <div class="col-lg-8">
                 <div class="border p-3">
-                    <h5 class="text-center mb-4">magi買取申込フォーム</h5>
-                    <h6 class="mb-2">magi公式買取事務局への査定申し込みフォームです。</h6>
+                    <h5 class="text-center mb-4">Swap-Tarou買取申込フォーム</h5>
+                    <h6 class="mb-2">Swap-Tarou公式買取事務局への査定申し込みフォームです。</h6>
                     <h6 class="mb-5">申し込み完了後、買取事務局にて内容を確認し、ご入力いただいたメールアドレスへご連絡させていただきます。</h6>
                     <div class="row">
                         <div class="col-lg-2"></div>

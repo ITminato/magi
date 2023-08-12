@@ -2,9 +2,9 @@
 
 @section('container')
 <div class="col-lg-12">
-    <div class="row d-flex justify-content-center">
+    <div class="row d-flex justify-content-center m-4">
         <div class="col-lg-3">
-        @include('components.mypage.menu')
+            @include('components.admin-menu')
         </div>
         <div class="col-lg-9">
             <div class="contanier">
@@ -25,7 +25,7 @@
                                 @csrf
                                 <div class="row mb-3">
                                     <div class="col-4">
-                                        <span class="m-0 p-0">タイトル</span>
+                                        <span class="m-0 p-0"><strong>タイトル</strong> </span>
                                         <span style="color:red;font-size:12px">■必須</span>
                                     </div>
                                     <div class="row">
@@ -35,11 +35,11 @@
                                         <div class="alert alert-danger m-1">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <h5 class="py-2">ニュース画像のアップロード</h5>
+                                <span class="py-2"><strong>ニュース画像のアップロード</strong> </span>
                                 <!-- <span style="color:#838383" class="">最大20枚まで登録できます</span> -->
                                 <div class="row d-flex flex-row">
                                     <label class="input-group-text col-12" style="height: 80px;cursor:pointer;text-align:center" for="inputGroupFile01">
-                                        <i class="bi bi-images" style="font-size:3em;"></i>
+                                        <i class="bi bi-images" style="font-size:3em;color:#838383"></i>
                                         <span style="color:#838383" class="mx-4">最大3枚まで登録できます</span>
                                         <div class="spinner-border" role="status" style="font-size: 3px;display:none">
                                             <span class="visually-hidden">Loading...</span>

@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -28,11 +29,33 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        $request->authenticate();
+        $user = User::where('email', $request["email"])->first();
 
-        $request->session()->regenerate();
+        if (!isset($user)) {
+            return back()->withErrors([
+                'message' => 'メールアドレスまたはパスワードが間違っています。',
+            ]);
+        }
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        if (isset($user) && $user->is_permitted == 0) {
+            return back()->withErrors([
+                'message' => 'あなたのアカウントは一時停止されました。 連絡をお待ちください。',
+            ]);
+        }
+
+        if (isset($user) && $user->is_permitted == 1) {
+
+            $request->authenticate();
+
+            $request->session()->regenerate();
+
+
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }
+
+        return back()->withErrors([
+            'error' => '提供されたクレデンシャルは、当社の記録と一致しません。',
+        ]);
     }
 
     /**

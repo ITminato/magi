@@ -1,10 +1,9 @@
 @extends('layouts.app')
 @section('container')
 <div class="col-lg-12">
-    <div class="row">
+    <div class="row m-4">
         <div class="col-lg-3">
-            <x-Mypage.menu>
-            </x-Mypage.menu>
+            @include('components.admin-menu')
         </div>
         <div class="col-lg-9">
             <div class="contanier">
@@ -68,7 +67,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header bg-info">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">ブランド</h1>
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">シリーズ</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">

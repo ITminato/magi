@@ -66,7 +66,7 @@
                                                     @foreach($buy_completes as $buy_complete)
                                                     <tr id="product_{{$buy_complete->id}}">
                                                         <td style="width:5em;height:5em"><img style="width:100%;height:100%" src="{{$buy_complete->product_img_1}}" alt="" /></td>
-                                                        <td>{{$buy_complete->product_name}}</td>
+                                                        <td><a href="{{ url('/mypage/review').'/'.$buy_complete->id }}">{{$buy_complete->product_name}}</a></td>
                                                         <td>￥{{number_format($buy_complete->prices)}}</td>
                                                         <td>{{App\Models\User::find($buy_complete->user_id)->name }}</td>
                                                         <td>

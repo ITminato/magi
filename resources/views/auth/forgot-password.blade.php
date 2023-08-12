@@ -35,6 +35,11 @@
         <div class="col-lg-2"></div>
         <div class="col-lg-8">
             <section class="content">
+                    <!-- Session Status -->
+    <x-auth-session-status class="mb-4" :status="session('status')" />
+
+    <!-- Validation Errors -->
+    <x-auth-validation-errors class="mb-4" :errors="$errors" />
                 <span><h4 class=text-center>パスワードをリセットし、仮パスワードを発行します。</h4></span>
                 <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary mb-4" method="POST" action="{{ route('password.email') }}">
                     @csrf

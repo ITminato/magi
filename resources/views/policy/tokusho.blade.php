@@ -14,7 +14,7 @@
                 <div>■ホームページ</div>
                 <div class="mb-3">https://jiraffe.co.jp/</div>
                 <div>■メールアドレス</div>
-                <div class="mb-3">support@magi.camp</div>
+                <div class="mb-3">support@Swap-Tarou.camp</div>
                 <div>■電話番号</div>
                 <div>03-5930-2200</div>
                 <div class="mb-3">*サービスに関するお問い合わせは、個人情報保護の観点からお問合せフォームよりお願いしており、お電話でのお問い合わせには対応致しかねます。お客様のご理解、ご協力をお願いしております。</div>

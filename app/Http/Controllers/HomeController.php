@@ -35,4 +35,9 @@ class HomeController extends Controller
 
         return view('home', ['categories' => $data, 'category' => $category_1, 'brand' => $brand, 'series' => $series, 'news' => $news]);
     }
+
+    public function news_more(){
+        $news_more = Admin_new::select('*')->paginate(20);
+        return view('news_more', compact('news_more'));
+    }
 }

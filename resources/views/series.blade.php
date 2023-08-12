@@ -1,7 +1,4 @@
 @extends('layouts.app')
-@section('add_css')
-    <link rel="stylesheet" href="{{ asset('css/style.min.css') }}">
-@endsection
 @section('container')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb p-3 bg-body-tertiary rounded-3">
@@ -18,7 +15,7 @@
 </nav>
 <div class="col-lg-12">
     <div class="row">
-        <div class="col-lg-3">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-3">
             <h5 class="py-1">詳細検索</h5>
             <form class="shadow-sm custom-form justify-content-center border rounded-3 bg-light p-2" method="get" action="{{ route('search') }}">
                 @csrf
@@ -123,76 +120,56 @@
                 </div>
             </form>
         </div>
-        <div class="col-lg-9">
+        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
             <div class="row mb-2">
                 <div class="col-lg-4">
                     <h5>@php $name = App\Models\Serie::find($id); echo $name['series']; @endphp 商品一覧</h5>
                 </div>
             </div>
-            <div class="row" id="order">
-                @if ( $series->count() > 0 )
-                    @foreach($series as $products)
-                    <a href="{{ route('item',$products['id']) }}" class="col-lg-3 mb-3">
-                        <div class="card bg-light" style="cursor: pointer;">
-                            <div class="card-header product_item">
-                                @if ($products['product_exhibit'] == 1)
-                                    <span class="label onsale">SOLD</span>
-                                @endif
-                                <?php
-                                    $img = $products['product_img_1'];
-                                    echo '<img class="bd-placeholder-img card-img-top" width="100%" height="auto" role="img" aria-label="Placeholder: Thumbnail" src= "' . $img . '">'
-                                ?>
-                            </div>
-                            <div class="product_details" style=" overflow: hidden; height:155px;">
-                                <p class="card-text" style="max-height: 150px;">{{ $products['description'] }}</p>
-                            </div>
-                            <div class="card-footer">
-                                @if (App\Models\Price_change::where('product_id', $products['id'])->count() > 0)
-                                    @php
-                                        $price = App\Models\Price_change::where('product_id', $products['id'])->orderBy('created_at', 'desc')->first();
-                                        echo '<small>¥ ';
-                                        echo $price->price;
-                                        echo '</small>';
-                                    @endphp
-                                @else
-                                <small>¥ {{ $products['prices'] }}</small>
-                                @endif
-                                <div class="float-end">
-                                    @if ($products['favorite'])
-                                    <img src="{{ asset('star.png') }}" alt="star" width="23px">&nbsp;{{ $products['favorite'] }}
+            <div class="contanier">
+                <div class="row" id="order">
+                    @if ( $series->count() > 0 )
+                        @foreach($series as $products)
+                        <a href="{{ route('product', $products['id']) }}" class="col-xl-3 col-lg-4 col-md-3 col-sm-6 col-6 mb-3">
+                            <div class="card bg-light">
+                                <div class="product_item">
+                                    @if ($products->product_exhibit == 1)
+                                        <span class="label onsale">SOLD</span>
+                                    @endif
+                                    <?php
+                                        $img = $products->product_img_1;
+                                        echo '<img class="bd-placeholder-img card-img-top" width="100%" height="auto" role="img" aria-label="Placeholder: Thumbnail" src= "' . $img . '">'
+                                    ?>
+                                </div>
+                                <div class="body p-1 elp">
+                                    <p class="card-text">{{ $products->description }}</p>
+                                </div>
+                                <div class="card-footer" style=" -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 1; overflow: hidden; text-overflow: ellipsis; word-break: break-word; min-height: 40px;">
+                                    @if (App\Models\Price_change::where('product_id', $products->id)->count() > 0)
+                                        @php
+                                            $price = App\Models\Price_change::where('product_id', $products->id)->orderBy('created_at', 'desc')->first();
+                                            echo '<div class="fontsize">¥ ';
+                                            echo $price->price;
+                                            echo '</div>';
+                                        @endphp
+                                    @else
+                                    <div class="fontsize">¥ {{ $products->prices }}</div>
+                                    @endif
+                                </div>
+                                <div class="d-flex">
+                                    <p style="font-size: 12px; width: 65%;" class="pt-1 float-start">出品数:&nbsp;{{ $products->inventory }}</p>
+                                    @if ($products->favorite)
+                                        <img src="{{ asset('star.png') }}" alt="star" width="25" height="25">&nbsp;{{ $products->favorite }}
                                     @endif
                                 </div>
                             </div>
-                        </div>
-                    </a>
-                    @endforeach
-                @else
-                    <h4 class="text-center">検索資料はありません。</h4>
-                @endif
-            </div>
-            {{-- <div class="row">
-                <div class="col-lg-4"></div>
-                <div class="col-lg-4">
-                    <nav aria-label="Standard pagination example">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
+                        </a>
+                        @endforeach
+                    @else
+                        <h4 class="text-center">検索資料はありません。</h4>
+                    @endif
                 </div>
-                <div class="col-lg-4"></div>
-            </div> --}}
+            </div>
         </div>
     </div>
 </div>
