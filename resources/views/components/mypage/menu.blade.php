@@ -1,4 +1,4 @@
-<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary rounded-3 border mb-2">
+<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary rounded-3 border mb-2" style="box-shadow: 0px 2px 8px #ddd;">
     <div class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
         <span class="fs-5 fw-semibold">メニュー</span>
     </div>
@@ -89,7 +89,7 @@
         </a>
     </div>
 </div>
-<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary rounded-3 border mb-2">
+<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary rounded-3 border mb-2" style="box-shadow: 0px 2px 8px #ddd;">
     <div class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
         <span class="fs-5 fw-semibold">設定</span>
     </div>

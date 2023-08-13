@@ -72,6 +72,17 @@
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
                                             <label class="form-check-label" for="flexRadioDefault1">
+                                                銀行振込 （振込手数料はお客様のご負担となります）
+                                            </label>
+                                        </div>
+                                        <label for="flexRadioDefault1">
+                                            振込先口座：みずほ銀行
+                                        </label>
+                                    </div>
+                                    {{--<div class="row p-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                            <label class="form-check-label" for="flexRadioDefault1">
                                                 クレジットカード
                                             </label>
                                         </div>
@@ -89,9 +100,9 @@
                                         <label for="flexRadioDefault2">
                                             <img src="{{ asset('img/card5.png') }}" style="height:8em;width:30em" alt="">
                                         </label>
-                                    </div>
+                                    </div>--}}
                                 </div>
-                                <a href="{{ url('/mypage/product/transaction/').'/'.$item_trade['id'] }}" onclick="return window.confirm('この製品を本当に購入しますか?')" class="btn btn-success">購入を確定する</a>
+                                <a href="{{ url('/transaction/').'/'.$item_trade['id'] }}" onclick="return window.confirm('この商品と本当に取引しますか？')" class="btn btn-success">購入を確定する</a>
                             </div>
                         </div>
                     </div>

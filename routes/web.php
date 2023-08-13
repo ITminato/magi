@@ -16,6 +16,8 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PriceChangeCotroller;
 use App\Http\Controllers\ProductReviewController;
+use App\Http\Controllers\TransactionContrller;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,55 +60,61 @@ Route::get('sell_product/{id}', [ProductController::class, 'sell_product'])->nam
 
 Route::get('news_more', [HomeController::class, 'news_more'])->name('news_more');
 
-Route::group(['middleware' => ['auth'], 'prefix' => 'mypage'], function () {
-    Route::middleware(['addressCheck','cardCheck'])->group(function () {
-        Route::get('/items/new', [MypageController::class,'item_new']);
-        Route::post('/item/getBrand', [MypageController::class,'getBrand']);
-        Route::post('/item/newProduct', [MypageController::class,'create_item']);
+Route::middleware(['auth'])->group(function () {
+
+    //mypage
+    Route::prefix('mypage')->group(function () {
+        Route::get('/index', [MypageController::class,'index'])->name('mypage_index');
+        Route::get('/news', [MypageController::class,'news']);
+        Route::get('/notices', [MypageController::class,'notices']);
+        Route::get('/check_items', [MypageController::class,'check_items']);
+        Route::get('/todos', [MypageController::class,'todos']);
+        Route::get('/presenteds', [MypageController::class,'presenteds']);
+    
+        Route::resource('/item_drafts', ItemDraft::class);
+        Route::post('/item/draft', [MypageController::class,'product_draft']);
+        Route::post('/item/draft/update',[ItemDraft::class,'product_update']);
+        Route::post('/product/delete',[MypageController::class,'product_delete']);
+    
+        Route::get('/product/transaction/{product_id}',[MypageController::class, 'transaction']);
+        Route::post('/product/completeAction',[MypageController::class, 'completeAction']);
+    
+        Route::get('/user_keepings', [MypageController::class,'user_keepings']);
+        Route::get('/trades', [MypageController::class,'trades']);
+        Route::get('/tradings', [MypageController::class,'tradings']);
+        Route::get('/sales', [MypageController::class,'sales']);
+        Route::get('/points', [MypageController::class,'points']);
+        Route::get('/applied_points', [MypageController::class,'applied_points']);
+
+        //setting
+        Route::get('/profile/edit', [MypageController::class,'profile']);
+        Route::post('/profile/update', [MypageController::class,'profile_update']);
+    
+        Route::get('/authentication/edit', [MypageController::class,'authenticationEdit']);
+        Route::get('/telephone', [MypageController::class,'telephone']);
+        Route::get('/product/stop/{id}',[MypageController::class, 'product_stop']);
+        Route::post('/product/copy',[MypageController::class,'product_copy']);
+        Route::get('/credit_card/edit', [MypageController::class,'credit_card']);
+        Route::post('/credit_card/save', [MypageController::class,'credit_card_save']);
+    
+        Route::get('/address/edit/', [MypageController::class,'address'])->name('address_edit');
+        Route::post('/address/save', [MypageController::class,'save']);
+    
+        Route::resource('/review',ProductReviewController::class);
+        Route::resource('/price_cut',PriceChangeCotroller::class);
+    
+        Route::post('/price_change',[PriceChangeCotroller::class, 'get_products']);
+        Route::post('/price_change/done',[PriceChangeCotroller::class, 'price_change_done']);
+
+        Route::middleware(['addressCheck',])->group(function () {
+            Route::get('/items/new', [MypageController::class,'item_new']);
+            Route::post('/item/getBrand', [MypageController::class,'getBrand']);
+            Route::post('/item/newProduct', [MypageController::class,'create_item']);
+        });
     });
-    Route::get('/index', [MypageController::class,'index'])->name('mypage_index');
-    Route::get('/news', [MypageController::class,'news']);
-    Route::get('/notices', [MypageController::class,'notices']);
-    Route::get('/check_items', [MypageController::class,'check_items']);
-    Route::get('/todos', [MypageController::class,'todos']);
-    Route::get('/presenteds', [MypageController::class,'presenteds']);
 
-    Route::resource('/item_drafts', ItemDraft::class);
-    Route::post('/item/draft', [MypageController::class,'product_draft']);
-    Route::post('/item/draft/update',[ItemDraft::class,'product_update']);
-    Route::post('/product/delete',[MypageController::class,'product_delete']);
-
-    Route::get('/product/transaction/{product_id}',[MypageController::class, 'transaction']);
-    Route::post('/product/completeAction',[MypageController::class, 'completeAction']);
-
-    Route::get('/user_keepings', [MypageController::class,'user_keepings']);
-    Route::get('/trades', [MypageController::class,'trades']);
-    Route::get('/tradings', [MypageController::class,'tradings']);
-    Route::get('/sales', [MypageController::class,'sales']);
-    Route::get('/points', [MypageController::class,'points']);
-    Route::get('/applied_points', [MypageController::class,'applied_points']);
-    //setting
-    Route::get('/profile/edit', [MypageController::class,'profile']);
-    Route::post('/profile/update', [MypageController::class,'profile_update']);
-
-    Route::get('/authentication/edit', [MypageController::class,'authenticationEdit']);
-    Route::get('/telephone', [MypageController::class,'telephone']);
-    Route::get('/product/stop/{id}',[MypageController::class, 'product_stop']);
-    Route::post('/product/copy',[MypageController::class,'product_copy']);
-    Route::get('/credit_card/edit', [MypageController::class,'credit_card']);
-    Route::post('/credit_card/save', [MypageController::class,'credit_card_save']);
-
-    Route::get('/address/edit/', [MypageController::class,'address'])->name('address_edit');
-    Route::post('/address/save', [MypageController::class,'save']);
-
-    Route::resource('/review',ProductReviewController::class);
-    Route::resource('/price_cut',PriceChangeCotroller::class);
-
-    Route::post('/price_change',[PriceChangeCotroller::class, 'get_products']);
-    Route::post('/price_change/done',[PriceChangeCotroller::class, 'price_change_done']);
-});
-Route::group(['middleware' => ['auth',], 'prefix' => 'admin'], function () {
-    Route::middleware(['admin', ])->group(function () { 
+    //admin
+    Route::group(['middleware' => ['admin',], 'prefix' => 'admin'], function () {
         Route::get('/category',[AdminController::class, 'category'])->name('admin_category');
         Route::post('/category/update',[AdminController::class, 'category_update']);
         Route::post('/category',[AdminController::class, 'category_create']);
@@ -126,13 +134,19 @@ Route::group(['middleware' => ['auth',], 'prefix' => 'admin'], function () {
         Route::get('/acount/delete',[AdminController::class, 'acount_del']);
         Route::get('/acount/permit',[AdminController::class, 'acount_permit']);
     });
-    Route::resource('/news',NewsController::class);
+    Route::resource('admin/news',NewsController::class);
+
+    //product transaction
+    Route::resource('/transaction',TransactionContrller::class);
+    Route::prefix('transaction')->group(function (){
+        Route::get('/seller/{id}',[TransactionContrller::class, 'seller']);
+        Route::get('/delivery_complate/{product_id}',[TransactionContrller::class, 'delivery_complate']);
+        Route::post('/trade_number',[TransactionContrller::class, 'trade_shipping_number']);
+    });
+    Route::get('item/trade/new/{id}', [ItemController::class, 'trade_new'])->name('trade_new');
 });
 
 Route::post('password_update', [Updatepasswordcontroller::class, 'index'])->name('password_update');
-
-Route::get('item/trade/new/{id}', [ItemController::class, 'trade_new'])->name('trade_new')->middleware('auth');
-
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 // footer
 Route::get('Privacy', function(){

@@ -76,7 +76,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th>IMG</th>
-                                                        <th>名前</th>
+                                                        <th>商品名</th>
                                                         <th>価格</th>
                                                         <th>トレーダー</th>
                                                         <!-- <th>取引同意</th> -->
@@ -93,7 +93,7 @@
                                                         <td>
                                                             <!-- <input class="" onchange="productComplete(event)" type="checkbox" value="" id="{{$transaction->id}}">
                                                             <label class="" for="{{$transaction->id}}">取引同意</label> -->
-                                                            <a href="{{url('mypage/product/transaction//').'/'.$transaction->id}}" class="btn btn-warning">取引</a>
+                                                            <a href="{{url('mypage/product/transaction/').'/'.$transaction->id}}" class="btn btn-warning">取引</a>
                                                         </td>
                                                     </tr>
                                                     @endforeach
@@ -171,7 +171,7 @@
                                                     @foreach($trands as $trand)
                                                     <tr id="product_{{$trand->id}}">
                                                         <td style="width:5em;height:5em"><img style="width:100%;height:100%" src="{{$trand->product_img_1}}" alt="" /></td>
-                                                        <td>{{$trand->product_name}}</td>
+                                                        <td><a href="{{ url('/transaction').'/'.$trand->id }}">{{$trand->product_name}}</a></td>
                                                         <td>￥{{number_format($trand->prices)}}</td>
                                                     </tr>
                                                     @endforeach

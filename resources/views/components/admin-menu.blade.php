@@ -33,11 +33,11 @@
                 <small><i class="bi bi-chevron-right"></i></small>
             </div>
         </a>
-        <a href="{{ url('/admin/charge') }}" <?php if (strpos(url()->current(), "/admin/charge")) echo 'class="active list-group-item list-group-item-action lh-sm"';else echo 'class="list-group-item list-group-item-action lh-sm"'; ?> >
+        {{--<a href="{{ url('/admin/charge') }}" <?php if (strpos(url()->current(), "/admin/charge")) echo 'class="active list-group-item list-group-item-action lh-sm"';else echo 'class="list-group-item list-group-item-action lh-sm"'; ?> >
             <div class="d-flex w-100 align-items-center justify-content-between">
                 <span class="">充電設定</span>
                 <small><i class="bi bi-chevron-right"></i></small>
             </div>
-        </a>
+        </a>--}}
     </div>
 </div>

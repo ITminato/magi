@@ -11,6 +11,7 @@ use App\Models\Brand;
 use App\Models\Serie;
 use App\Models\Product;
 use App\Models\Product_sale;
+use DateTime;
 use GuzzleHttp\Handler\Proxy;
 
 // use App\Models\Mypage;
@@ -341,16 +342,19 @@ class MypageController extends Controller
 
     public function transaction($product_id) {
         $product = Product::find($product_id);
-        $buyer_info = User::find($product->transaction_user_id);
+        $product->type = 3;
+        $product->transaction_user_id = Auth::id();
+        $product->transaction_date = time();
+        $product->save();
+
+        $admin_info = User::where('role','admin')->get();
+        $user_info = User::find(Auth::id());
+
         return view('mypage.transaction',[
-            'product'=>$product,
-            'buyer_info'=>$buyer_info
+            'admin_info'=>$admin_info,
+            'user_info'=>$user_info,
+            'product'=>$product
         ]);
-        // $product = Product::find($product_id);
-        // $product->type = 3;
-        // $product->transaction_user_id = Auth::id();
-        // $product->save();
-        // return redirect()->route('mypage_index');
     }
 
     public function completeAction(Request $request) {

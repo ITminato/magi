@@ -5,12 +5,20 @@
         <div class="col-lg-2"></div>
         <div class="col-lg-8">
             <section class="content">
-                <span><h4 class=text-center>メールアドレスでログイン</h4></span>
-                @if ($errors->any())
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        メールアドレスを入力してください, パスワードを入力してください
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
+            <span><h4 class=text-center>メールアドレスでログイン</h4></span>
+                @if ($errors->first('message'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span class="alert-text text-white"> {{$errors->first('message')}} </span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                @elseif ($errors->first('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span class="alert-text text-white"> {{__('messages.auth.email_or_password_error')}} </span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+                </div>
                 @endif
                 <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary mb-4" method="POST" action="{{ route('login') }}">
 
