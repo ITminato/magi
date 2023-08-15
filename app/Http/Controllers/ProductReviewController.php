@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Price_change;
 use App\Models\Product_sale;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Laravel\Ui\Presets\React;
 
 class ProductReviewController extends Controller
 {
@@ -50,25 +51,9 @@ class ProductReviewController extends Controller
      */
     public function show($id)
     {
-        $item = Product::find($id);
-        $product_name = $item->product_name;
-        $brand = $item->brand;
-        $item_similar = Product::where('brand', '=', $brand)
-                                ->where('type', '>=', 2)
-                                ->where('product_name', 'LIKE', substr($product_name, 0, 3) . '%')
-                                ->limit(8)
-                                ->get();
-        $product_bar = Product::where('type', '>=', 2)->where('brand', '=', $brand)->get();
-
-        $chart_data = Price_change::where('product_id', $id)->orderBy('created_at')->get();
-        $labels = $chart_data->pluck('created_at')->map(function ($date) {
-            return $date->format('y月m日d');
-        });
-        $prices = $chart_data->pluck('price');
-        $first_price = Product::where('type', '>=', 2)->where('id', $id)->first();
-        $last_price = Price_change::where('product_id', $id)->orderBy('created_at', 'desc')->first();
-        $price = Price_change::where('product_id', $id)->get();
-        return view('mypage.review.review', ['id' => $id, 'item_similar' => $item_similar, 'product_bar' => $product_bar, 'product_name' => $product_name, 'first_price' => $first_price, 'last_price' => $last_price, 'table' => $price], compact('labels', 'prices'));
+        $user_id = Product::find($id);
+        $seller_user = User::where('id', $user_id['user_id'])->first();
+        return view('mypage.review.review', ['id' => $id, 'seller_user' => $seller_user, 'product' => $user_id]);
     }
 
     /**
@@ -89,20 +74,9 @@ class ProductReviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $review = Product_sale::where('send_user_id','=',Auth::id())->where('product_id','=',$id)->first();
-        if( !isset($review)) {
-            $review = new Product_sale;
-        }
-        $review->send_user_id = Auth::id();
-        $review->product_id = $id;
-        $review->review_1 = ($request->success == 'true') ? 1 : 0;
-        $review->review_2 = ($request->warning == 'true') ? 1 : 0;
-        $review->review_3 = ($request->danger == 'true') ? 1 : 0;
-        $review->review_text = $request->review_text;
-        $review->save();
-        return 'success';
+
     }
 
     /**
@@ -114,5 +88,17 @@ class ProductReviewController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function review_save(Request $request) {
+        $review = new Product_sale;
+        $review->send_user_id = $request->send_user_id;
+        $review->product_id = $request->product_id;
+        $review->review_1 = $request->review == "success" ? 2 : 1;
+        $review->review_2 = $request->review == "warning" ? 2 : 1;
+        $review->review_3 = $request->review == "danger" ? 2 : 1;
+        $review->review_text = $request->review_text;
+        $review->save();
+        return redirect()->route('mypage_index');
     }
 }

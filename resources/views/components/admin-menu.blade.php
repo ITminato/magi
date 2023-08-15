@@ -3,6 +3,12 @@
         <span class="fs-5 fw-semibold">管理者</span>
     </div>
     <div class="list-group list-group-flush border-bottom scrollarea">
+        <a href="{{ url('/admin/payment') }}" <?php if (strpos(url()->current(), "/admin/payment")) echo 'class="active list-group-item list-group-item-action lh-sm"';else echo 'class="list-group-item list-group-item-action lh-sm"'; ?> >
+            <div class="d-flex w-100 align-items-center justify-content-between">
+                <span class="">支払い管理</span>
+                <small><i class="bi bi-chevron-right"></i></small>
+            </div>
+        </a>
         <a href="{{ url('/admin/category') }}" <?php if (strpos(url()->current(), "/admin/category")) echo 'class="active list-group-item list-group-item-action lh-sm"';else echo 'class="list-group-item list-group-item-action lh-sm"'; ?> >
             <div class="d-flex w-100 align-items-center justify-content-between">
                 <span class="">カテゴリ設定</span>

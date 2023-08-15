@@ -7,8 +7,8 @@
                 <div class="border rounded-3 bg-light p-3 mb-4">
                     <h5>購入手続き</h5>
                     <div class="row">
-                        <div class="col-lg-3 col-sm-12 p-1 m-0">
-                            <img src="{{ $item_trade->product_img_1 }}" alt="..." style="width:auto;height:auto">
+                        <div class="col-lg-3 col-sm-12 p-2 m-0">
+                            <img src="{{ $item_trade->product_img_1 }}" alt="..." style="width:auto;height:auto" class="rounded-2">
                         </div>
                         <div class="col-lg-9 col-sm-12">
                             <div class="row d-flex flex-column p-3">

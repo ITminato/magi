@@ -47,10 +47,10 @@
 @section('container')
 <div class="col-lg-12">
     <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-3 p-3">
         @include('components.mypage.menu')
         </div>
-        <div class="col-lg-9">
+        <div class="col-lg-9 p-3">
             {{--<div class="contanier">
                 <div class="border rounded-3 p-2 bg-light mb-4">
                     <div class="row">
@@ -156,8 +156,8 @@
                     </div>
                 </div>
             </div>--}}
-            <div class="container">
-                <h3>出品した商品</h3>
+            <div class="container card shadow p-3" style="min-height: 35em;">
+                <h5>出品した商品</h5>
                 <div class="row">
                     <div class="col-xs-12 ">
                         <nav>
@@ -215,7 +215,10 @@
                                                             <small style="color:red">発送待ち</small>
                                                             @break
                                                             @case(4)
-                                                            <small style="color:red">発送待ち</small>
+                                                            <small style="color:red">配達中</small>
+                                                            @break
+                                                            @case(5)
+                                                            <small style="color:#0851c3">配達済み</small>
                                                             @break
                                                         @default
                                                     @endswitch
@@ -229,7 +232,27 @@
                                 @endif
                             </div>
                             <div class="tab-pane fade" id="nav-profile-2" role="tabpanel" aria-labelledby="nav-profile-2-tab">
-                                
+                                @if(count($completes) == 0)
+                                    <p>取引完了の商品はありません</p>
+                                @else
+                                <ul class="list-group list-group-light list-group-small">
+                                    @foreach($completes as $complete)
+                                    <li class="list-group-item border-0">
+                                        <a href="">
+                                            <div class="d-flex flex-row p-2 m-2" style="border-bottom:1px solid #ddd">
+                                                <img src="{{ $complete->product_img_1 ?? $complete->product_img_2 }}" class="image rounded-3" style="width:7em;height:auto" alt="">
+                                                <div class="d-flex flex-column my-2 mx-4">
+                                                    <small>{{ $complete->product_name}}</small>
+                                                    <h5>￥<strong>{{number_format($complete->prices)}}</strong></h5>
+                                                    <small>取引完了</small>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                                @if (count($completes)) {{ $completes->onEachSide(1)->links('mypage.pagination') }} @endif
+                                @endif
                             </div>
                         </div>
                     </div>

@@ -9,12 +9,12 @@
 @section('container')
 <div class="col-lg-12">
     <div class="row m-4">
-        <div class="col-lg-3">
+        <div class="col-lg-3 p-3">
             @include('components.mypage.menu')
         </div>
-        <div class="col-lg-9">
+        <div class="col-lg-9 p-3">
             <div class="contanier">
-                <div class="card">
+                <div class="card shadow">
                     <div class="card-header">
                         <h3>値下げリスト</h3>
                     </div>
@@ -40,7 +40,7 @@
                             <div class="row m-3 my-5">
                                 <div class="col-lg-6 col-sm-12">
                                     <div class="form-check d-flex">
-                                        <input class="form-check-input" style="font-size:24px;cursor:pointer" type="radio" name="flexRadioDefault" onChange="if(this.checked == true) $('#pro_2').attr('disabled','disabled');$('#pro_2').css('cursor','not-allowed');$('#pro').removeAttr('disabled');$('#pro').css('cursor','auto'); " id="flexRadioDefault2" checked>
+                                        <input class="form-check-input" style="font-size:24px;cursor:pointer" type="radio" name="flexRadioDefault" onChange="if(this.checked == true) $('#pro_2').attr('disabled','disabled');$('#pro_2').val(0);$('#pro_2').css('cursor','not-allowed');$('#pro').removeAttr('disabled');$('#pro').css('cursor','auto'); " id="flexRadioDefault2" checked>
                                         <label class="form-check-label mx-2" for="flexRadioDefault2">
                                             <input type="number" class="form-control text-end" name="pro" onKeyPress="if(this.value.length > 2 )return false;" value="0" id="pro" />
                                         </label>
@@ -49,9 +49,9 @@
                                 </div>
                                 <div class="col-lg-6 col-sm-12">
                                     <div class="form-check d-flex">
-                                        <input class="form-check-input" style="font-size:24px;cursor:pointer" type="radio" name="flexRadioDefault" onChange="if(this.checked == true) $('#pro').attr('disabled','disabled');$('#pro').css('cursor','not-allowed');$('#pro_2').removeAttr('disabled');$('#pro_2').css('cursor','auto'); "  id="flexRadioDefault2">
+                                        <input class="form-check-input" style="font-size:24px;cursor:pointer" type="radio" name="flexRadioDefault" onChange="if(this.checked == true) $('#pro').attr('disabled','disabled');$('#pro').val(0);$('#pro').css('cursor','not-allowed');$('#pro_2').removeAttr('disabled');$('#pro_2').css('cursor','auto'); "  id="flexRadioDefault2">
                                         <label class="form-check-label mx-2" for="flexRadioDefault2">
-                                            <input type="number" class="form-control text-end" name="pro_2" onKeyPress="if(this.value.length > 2 )return false;" value="0" id="pro_2" style="cursor:not-allowed" disabled />
+                                            <input type="number" class="form-control text-end" name="pro_2" onKeyPress="if(this.value.length > 8 )return false;" value="0" id="pro_2" style="cursor:not-allowed" disabled />
                                         </label>
                                         <span>円価格変更</span>
                                     </div>

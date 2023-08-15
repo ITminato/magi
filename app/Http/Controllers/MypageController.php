@@ -42,7 +42,8 @@ class MypageController extends Controller
                 'transactions'=> $transactions,
                 'completes' => $completes,
                 'trands' => $trands,
-                'buy_completes' => $buy_completes
+                'buy_completes' => $buy_completes,
+                'user_info'=> $address,
             ]);
         }
     }

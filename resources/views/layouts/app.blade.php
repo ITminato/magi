@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/headers.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <style>
         .card:hover{
             box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
@@ -33,7 +34,7 @@
     </style>
     @yield('add_css')
 </head>
-<body>
+<body style="font-size: 13px;color: #838383;">
     @include('layouts.header')
     <div class="container-sm my-4">
 

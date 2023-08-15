@@ -65,7 +65,6 @@ class TransactionContrller extends Controller
         $product = Product::find($id);
         $product->type = 3;
         $product->transaction_date = date('Y-m-d H:i:s');
-        // dd(date('Y-m-d H:i:s'));
         $product->transaction_user_id = Auth::id();
         $product->save();
         
@@ -124,15 +123,20 @@ class TransactionContrller extends Controller
     public function trade_shipping_number (Request $request){
         $product = Product::find($request->product_id);
         $product->trade_shipping_number = $request->trade_number;
-        $product->trade_condition = 1;
+        $product->trade_condition = 4;
+        $product->deliver_date = date('Y-m-d H:i:s');
         $product->save();
         return redirect()->back();
     }
-    public function delivery_complate($product_id)
+    public function delivery_complate(Request $request)
     {
-        $product = Product::find($product_id);
+        $product = Product::find($request->product_id);
         $product->trade_condition = 5 ;//delivery complate and quote
+        $product->type = 4;
         $product->save();
-        return redirect(url(''));// retturn give to review seller
+        $seller = User::find($product->user_id);
+        $seller->amount_sales = $seller->amount_sales + ($product->prices + ($product->prices * 0.03));
+        $seller->save();
+        return redirect(url('mypage/review'.'/'.$request->product_id));// retturn give to review seller
     }
 }

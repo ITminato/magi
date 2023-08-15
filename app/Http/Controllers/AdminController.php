@@ -14,13 +14,18 @@ use App\Models\Category;
 
 class AdminController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('admin');
-        // $this->middleware('log')->only('index');
-        // $this->middleware('subscribed')->except('store');
+    public function payment() {
+        $paymenting = Product::where('type',3)->where('trade_condition',1)->get();
+        return view('admin.payment',[
+            'paymenting'=>$paymenting,
+        ]);
     }
-
+    public function confirm(Request $request) {
+        $product = Product::find($request->id);
+        $product->trade_condition = 3;
+        $product->save();
+        return 'dragon';
+    }
     public function category() {
         $category_get = Category::paginate(10);
         return view('admin.category',['category_get' => $category_get]);

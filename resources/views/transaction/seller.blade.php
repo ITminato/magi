@@ -1,6 +1,72 @@
 @extends('layouts.app')
 @section('add_css')
-    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+<style>
+    .swap-dragon {
+        background-color: #0c86f1;
+        height:4em;
+        width:4em;
+        text-align: center;
+    }
+    .swap-dragon-icon {
+        color:antiquewhite;
+        font-size:2.5em;
+        position:relative
+    }
+    .swap-dragon-active {
+        background-color: #838383;
+        height:2em;
+        width:2em;
+        text-align: center;
+    }
+    .custom-margin {
+        margin: auto 2em;
+    }
+    .read-progress::after {
+        content: ' ';
+        display: block;
+        position: absolute;
+        width: 30px;
+        height: 4px;
+        background: #838383;
+        top: 11px;
+        left: 46px;
+        border-radius: 4px;
+    }
+    .read-progress::before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        width: 30px;
+        height: 4px;
+        background: #838383;
+        top: 11px;
+        right: 46px;
+        border-radius: 4px;
+    }
+    .trade-progress::after {
+        content: ' ';
+        display: block;
+        position: absolute;
+        width: 30px;
+        height: 4px;
+        background: #838383;
+        top: 25px;
+        left: 65px;
+        border-radius: 4px;
+    }
+    
+    .trade-progress::before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        width: 30px;
+        height: 4px;
+        background: #838383;
+        top: 25px;
+        right: 65px;
+        border-radius: 4px;
+    }
+</style>    
 @endsection
 @section('container')
 <div class="row d-flex justify-content-center">
@@ -14,9 +80,30 @@
                         </div>
                     @break
                     @case(3)
-                        <div class="alert alert-warning rounded-4" role="alert">
-                            商品が購入されました。商品を発送してください。
-                        </div>
+                    <div class="container-fluid mb-4">
+                        <div class="d-flex justify-content-center relative">
+                            <div class="icon-tab col-sm-offset-3 active d-flex flex-column custom-margin" style="align-items: center;position:relative">
+                                <div class="rounded-5 swap-dragon">
+                                    <i class="bi bi-bag-fill swap-dragon-icon"></i>
+                                </div>
+                                <span style="font-weight: bold;color:black">発送前</span>
+                            </div>
+                            <div class="icon-tab col-sm-offset-3 active d-flex flex-column custom-margin read-progress" style="align-items: center;position:relative">
+                                <div class="rounded-5 swap-dragon-active">
+                                    <!-- <i class="bi bi-bag-fill swap-dragon-icon"></i> -->
+                                </div>
+                                <span>配送中</span>
+                            </div>
+                            <div class="icon-tab col-sm-offset-3 active d-flex flex-column custom-margin" style="align-items: center;position:relative">
+                                <div class="rounded-5 swap-dragon-active">
+                                    <!-- <i class="bi bi-bag-fill swap-dragon-icon"></i> -->
+                                </div>
+                                <span>配達済み</span>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="card p-3 shadow">
+                        <p>商品が購入されました。商品を発送してください。</p>
                         <div class="row">
                             <p><strong>追跡番号を入力してください。<span style="color:red;font-size:12px">■必須</span></strong> </p>
                         </div>
@@ -24,16 +111,40 @@
                             @csrf
                             <div class="">
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                <input type="number" onKeyPress="if(this.value.length==8) return false;" name="trade_number" id="trade_number" value="{{ $product->trade->trade_shipping_number ?? '' }}" class="form-control rounded-2 " required />
+                                <input type="number" placeholder="追跡番号は10文字以上で入力してください" name="trade_number" id="trade_number" value="{{ $product->trade->trade_shipping_number ?? '' }}" class="form-control rounded-2 " required />
                             </div>
-                            <div class="d-flex justify-content-end p-2">
-                                <button type="submit" onclick="return window.confirm('商品を発送してもよろしいですか？')" class="btn btn-warning w-40" id="trade_save">商品の配送</button>
+                            <div class="d-flex justify-content-end py-2">
+                                <button type="submit" class="btn btn-primary w-40" id="trade_save">商品の配送</button>
                             </div>
                         </form>
+                    </div>
                     @break
                     @case(4)
-                        <div>
-
+                        <div class="container-fluid mb-4">
+                            <div class="d-flex justify-content-center relative">
+                                <div class="icon-tab col-sm-offset-3 active d-flex flex-column custom-margin" style="align-items: center;position:relative">
+                                    <div class="rounded-5 swap-dragon-active">
+                                        <!-- <i class="bi bi-bag-fill swap-dragon-icon"></i> -->
+                                    </div>
+                                    <span>発送前</span>
+                                </div>
+                                <div class="icon-tab col-sm-offset-3 active d-flex flex-column custom-margin trade-progress" style="align-items: center;position:relative">
+                                    <div class="rounded-5 swap-dragon">
+                                        <i class="bi bi-bag-fill swap-dragon-icon"></i>
+                                    </div>
+                                    <span style="font-weight: bold;color:black">配送中</span>
+                                </div>
+                                <div class="icon-tab col-sm-offset-3 active d-flex flex-column custom-margin" style="align-items: center;position:relative">
+                                    <div class="rounded-5 swap-dragon-active">
+                                        <!-- <i class="bi bi-bag-fill swap-dragon-icon"></i> -->
+                                    </div>
+                                    <span>配達済み</span>
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="alert alert-warning rounded-4" role="alert">
+                            <span>商品が発送中です。</span>
+                            <p>バイヤーが確認します。</p>
                         </div>
                     @break
                     @default
@@ -50,7 +161,7 @@
                                     <img class="rounded-5" src="{{ App\Models\User::find($content->send_user_id)->user_img ?? asset('profile_edit.png') }}" alt="" height="auto" width="100%">
                                 </div>
                                 <div class="col-lg-10">
-                                    <a href=""><strong>{{ App\Models\User::find($content->send_user_id)->name }}</strong> </a>
+                                    <a href="{{ url('user/').'/'.$content->send_user_id }}"><strong>{{ App\Models\User::find($content->send_user_id)->name }}</strong> </a>
                                     <div class="card p-2">
                                         <div class="row">
                                             <div class="col p-2">
@@ -99,7 +210,6 @@
   </div>
 </div>
 @endsection
-
 @section('add_js')
     <script>
         $('#trade_save').on('click',function(){

@@ -87,7 +87,7 @@
                                                             <small style="color:red">発送待ち</small>
                                                             @break
                                                             @case(4)
-                                                            <small style="color:red">配送中</small>
+                                                            <small style="color:red">配達中</small>
                                                             @break
                                                         @default
                                                     @endswitch

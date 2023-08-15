@@ -2,12 +2,12 @@
 @section('container')
 <div class="col-lg-12">
     <div class="row m-4">
-        <div class="col-lg-3">
+        <div class="col-lg-3 p-3">
             @include('components.admin-menu')
         </div>
-        <div class="col-lg-9">
+        <div class="col-lg-9 p-3">
             <div class="contanier">
-                <div class="card">
+                <div class="card shadow">
                     <div class="card-header">
                         <h3>カテゴリ</h3>
                     </div>

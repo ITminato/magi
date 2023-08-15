@@ -3,12 +3,12 @@
 @section('container')
 <div class="col-lg-12">
     <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-3 p-3">
             @include('components.mypage.menu')
         </div>
-        <div class="col-lg-9">
+        <div class="col-lg-9 p-3">
             <div class="contanier">
-                <div class="border rounded-3 p-2 bg-light mb-4">
+                <div class="border shadow rounded-3 p-2 mb-4">
                     <div class="row">
                         <div class="col-lg-12">
                             @if ($errors->any())

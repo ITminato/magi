@@ -1,4 +1,4 @@
-<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary rounded-3 border mb-2" style="box-shadow: 0px 2px 8px #ddd;">
+<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary rounded-3 border mb-3 " style="box-shadow: 0px 2px 8px #ddd;">
     <div class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
         <span class="fs-5 fw-semibold">メニュー</span>
     </div>
@@ -57,12 +57,12 @@
                 <small class="text-body-secondary"><i class="bi bi-chevron-right"></i></small>
             </div>
         </a>
-        <a href="/mypage/trades" <?php if (strpos(url()->current(), "/mypage/trades")) echo 'class="active list-group-item list-group-item-action lh-sm"';else echo 'class="list-group-item list-group-item-action lh-sm"'; ?>>
+        {{--<a href="/mypage/trades" <?php if (strpos(url()->current(), "/mypage/trades")) echo 'class="active list-group-item list-group-item-action lh-sm"';else echo 'class="list-group-item list-group-item-action lh-sm"'; ?>>
             <div class="d-flex w-100 align-items-center justify-content-between">
                 <span class="">一括発送通知</span>
                 <small class="text-body-secondary"><i class="bi bi-chevron-right"></i></small>
             </div>
-        </a>
+        </a>--}}
         <a href="/mypage/tradings" <?php if (strpos(url()->current(), "/mypage/tradings")) echo 'class="active list-group-item list-group-item-action lh-sm"';else echo 'class="list-group-item list-group-item-action lh-sm"'; ?>>
             <div class="d-flex w-100 align-items-center justify-content-between">
                 <span class="">購入した商品</span>

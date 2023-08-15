@@ -51,9 +51,9 @@
 			</a>
 		</li>
 		@endif
-		<li class="page-item">
+		{{--<li class="page-item">
 			<a class="page-link">トータル{{ $paginator->total() }}件</a>
-		</li>
+		</li>--}}
 	</ul>
 </div>
 @endif

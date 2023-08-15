@@ -38,7 +38,11 @@ Route::get('advanced_search', [AdvancedsearchController::class, 'index'])->name(
     Route::get('search', [AdvancedsearchController::class, 'search'])->name('search');
     Route::post('order', [AdvancedsearchController::class, 'order'])->name('order');
 
-Route::get('category_title/{id}', [CategorytitleController::class, 'category'])->name('category_title');
+    Route::get('category_title/{id}', [CategorytitleController::class, 'category'])->name('category_title');
+    Route::post('get_category_brand', [CategorytitleController::class, 'get_category_brand'])->name('get_category_brand');
+    Route::post('get_category_series', [CategorytitleController::class, 'get_category_series'])->name('get_category_series');
+    Route::post('get_series', [CategorytitleController::class, 'get_series'])->name('get_series');
+    Route::post('all_product', [CategorytitleController::class, 'all_product'])->name('all_product');
 
 Route::get('brand/{id}', [CategorytitleController::class, 'brand'])->name('brand');
 
@@ -101,6 +105,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/address/save', [MypageController::class,'save']);
     
         Route::resource('/review',ProductReviewController::class);
+        Route::post('/review_save',[ProductReviewController::class, 'review_save']);
         Route::resource('/price_cut',PriceChangeCotroller::class);
     
         Route::post('/price_change',[PriceChangeCotroller::class, 'get_products']);
@@ -115,6 +120,9 @@ Route::middleware(['auth'])->group(function () {
 
     //admin
     Route::group(['middleware' => ['admin',], 'prefix' => 'admin'], function () {
+        Route::get('/payment',[AdminController::class, 'payment']);
+        Route::post('/payment/confirm',[AdminController::class, 'confirm']);
+
         Route::get('/category',[AdminController::class, 'category'])->name('admin_category');
         Route::post('/category/update',[AdminController::class, 'category_update']);
         Route::post('/category',[AdminController::class, 'category_create']);
@@ -140,10 +148,12 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/transaction',TransactionContrller::class);
     Route::prefix('transaction')->group(function (){
         Route::get('/seller/{id}',[TransactionContrller::class, 'seller']);
-        Route::get('/delivery_complate/{product_id}',[TransactionContrller::class, 'delivery_complate']);
+        Route::post('/delivery_complate',[TransactionContrller::class, 'delivery_complate']);
         Route::post('/trade_number',[TransactionContrller::class, 'trade_shipping_number']);
     });
     Route::get('item/trade/new/{id}', [ItemController::class, 'trade_new'])->name('trade_new');
+
+    Route::get('/user/{id}',[UserreviewController::class,'index']);
 });
 
 Route::post('password_update', [Updatepasswordcontroller::class, 'index'])->name('password_update');
